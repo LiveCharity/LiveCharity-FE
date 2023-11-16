@@ -1,14 +1,29 @@
 import { createBrowserRouter } from 'react-router-dom';
+import HomePage from '../views/HomePage';
+import LoginPage from '../views/LoginPage';
+import RegisterPage from '../views/RegisterPage';
+import LivestreamPage from '../views/LivestreamPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <h1>Hello From Home</h1>
+    element: <HomePage />,
   },
+
   {
-    path: '/about',
-    element: <h1>About page</h1>
-  }
+    path: '/livestream',
+    element: <LivestreamPage />,
+  },
+
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+
+  {
+    path: '/register',
+    element: <RegisterPage />,
+  },
 ]);
 
 export default router;
