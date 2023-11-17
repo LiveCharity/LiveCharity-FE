@@ -14,6 +14,7 @@ export default function CampaignDetailPage() {
   };
   return (
     <>
+    <div className="campaign-container">
       <div className="container mt-5">
         <div className="container row">
           <div className="col-md-12 my-2">
@@ -88,6 +89,7 @@ export default function CampaignDetailPage() {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }

@@ -1,8 +1,9 @@
+import { useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router-dom';
 
-function CampaignCard() {
+function CampaignCard({campaign}) {
 
     const navigate = useNavigate()
     const handleDetailCampaign = (e) => {
@@ -10,16 +11,30 @@ function CampaignCard() {
         navigate(`/detail`)
     }
 
+    const formatCurrency = (amount) => {
+        const formatter = new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR',
+          minimumFractionDigits: 0,
+        });
+      
+        return formatter.format(amount);
+      };
+
+    useEffect(() => {
+       console.log(campaign) 
+    },[])
+
   return (
     <Card style={{ width: '23rem' }}>
-      <Card.Img variant="top" src="https://70867a2ef4c36f4d1885-185a360f54556c7e8b9c7a9b6e422c6e.ssl.cf6.rackcdn.com/picture/campaign/2023-11-13/P8Qz5AHb2URH.jpg" />
+      <Card.Img variant="top" src={campaign?.thumbnail} />
       <Card.Body>
-        <Card.Title>Kebagian bersama untuk Gaza</Card.Title>
+        <Card.Title>{campaign?.title}</Card.Title>
         <Card.Text style={{fontSize:10}}>
           Creator LiveCharity
         </Card.Text>
         <Card.Text style={{fontSize:10}}>
-          Terkumpul Rp.100.000.000 dari Rp.200.000.000
+          Terkumpul {formatCurrency(campaign?.currentFunds)} dari {formatCurrency(campaign?.targetFunds)}
         </Card.Text>
         <Button onClick={handleDetailCampaign} variant="primary" className='w-100'>See Campaign</Button>
       </Card.Body>

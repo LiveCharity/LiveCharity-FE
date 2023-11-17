@@ -1,5 +1,11 @@
-body {
+/* body {
     background-color: #EAF3F9 !important; 
+} */
+
+.campaign-container {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #EAF3F9 !important;
 }
 
 .detail-right {

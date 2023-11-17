@@ -2,8 +2,29 @@ import Carousel from "react-bootstrap/Carousel";
 import CarouselImage from "../components/campaign/CarouselImage";
 import "./CampaignPage.css";
 import CampaignCard from "../components/campaign/CampaignCard";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { campaignFetch } from "../store/actions/actionsCampaign";
 
 export default function CampaignPage() {
+
+  const dispatch = useDispatch()
+
+  const dataCampaign = useSelector((state) => {
+    console.log(state, "ini dari state home")
+    return state.campaignReducer.campaign
+  })
+  const displayedData = dataCampaign.slice(0, 3)
+  const displayedData2 = dataCampaign.slice(3, 6)
+
+  useEffect(() => {
+    dispatch(campaignFetch())
+    .then(() => {
+      console.log("FETCH BERHASIL DARI CAMPAIGN PAGE")
+    })
+  }, [])
+
+
   return (
     <>
       <div className="container">
@@ -35,30 +56,31 @@ export default function CampaignPage() {
         <div className="continer">
           <div className="card-campaign  mt-5">
             <div className="d-flex justify-content-between">
-              <h4>Campaign Pilihan</h4>
-              <button type="button" class="btn btn-outline-primary">
-                See More
-              </button>
+              <h4>Latest Campaign</h4>
             </div>
             <div className="flex-row d-flex justify-content-center gap-5 mt-3">
-              <CampaignCard />
-              <CampaignCard />
-              <CampaignCard />
+              {
+                displayedData.map(campaign =>{
+                  return <CampaignCard campaign={campaign} key={campaign.id}/>
+                })
+              }
             </div>
           </div>
         </div>
         <div className="continer">
           <div className="card-campaign  mt-5">
             <div className="d-flex justify-content-between">
-              <h4>Campaign Pilihan</h4>
-              <button type="button" class="btn btn-outline-primary">
+              <h4>Urgent Campaign</h4>
+              <button type="button" className="btn btn-outline-primary">
                 See More
               </button>
             </div>
             <div className="flex-row d-flex justify-content-center gap-5 mt-3">
-              <CampaignCard />
-              <CampaignCard />
-              <CampaignCard />
+              {
+                displayedData2.map(campaign =>{
+                  return <CampaignCard campaign={campaign} key={campaign.id}/>
+                })
+              }
             </div>
           </div>
         </div>
