@@ -5,6 +5,8 @@ import LivestreamPage from '../views/LivestreamPage';
 import CampaignPage from '../views/CampaignPage';
 import CampaignDetailPage from '../views/CampaignDetailPage';
 
+import TopUpModal from '../components/modal/TopUpModal';
+
 const router = createBrowserRouter([
   {
     path: '/',
