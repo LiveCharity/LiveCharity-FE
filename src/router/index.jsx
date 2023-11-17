@@ -1,20 +1,26 @@
 import { createBrowserRouter } from 'react-router-dom';
-import HomePage from '../views/HomePage';
 import LoginPage from '../views/LoginPage';
 import RegisterPage from '../views/RegisterPage';
 import LivestreamPage from '../views/LivestreamPage';
+import CampaignPage from '../views/CampaignPage';
+import CampaignDetailPage from '../views/CampaignDetailPage';
 
 import TopUpModal from '../components/modal/TopUpModal';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <TopUpModal />,
+    element: <CampaignPage />,
   },
 
   {
     path: '/livestream',
     element: <LivestreamPage />,
+  },
+
+  {
+    path: '/detail',
+    element: <CampaignDetailPage />,
   },
 
   {
