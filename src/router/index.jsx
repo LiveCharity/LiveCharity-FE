@@ -4,10 +4,12 @@ import LoginPage from '../views/LoginPage';
 import RegisterPage from '../views/RegisterPage';
 import LivestreamPage from '../views/LivestreamPage';
 
+import TopUpModal from '../components/modal/TopUpModal';
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: <TopUpModal />,
   },
 
   {
