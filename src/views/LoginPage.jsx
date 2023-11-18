@@ -10,8 +10,8 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const [userInput, setUserInput] = useState({
-    email: 'dudungxxx@gmail.com',
-    password: 'dudungxxx',
+    email: '',
+    password: '',
   });
 
   const handlerUserInput = (e) => {
