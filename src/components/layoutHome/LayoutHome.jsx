@@ -1,7 +1,11 @@
+import NavbarPage from '../Navbar';
+import { Outlet } from 'react-router-dom';
+
 export default function LayoutHome() {
   return (
     <>
-      <div>LayoutHome</div>
+      <NavbarPage />
+      <Outlet />
     </>
   );
 }
