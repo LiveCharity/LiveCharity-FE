@@ -43,7 +43,7 @@ export const campaignDetailFetch = (id) => {
       });
       if (!response.ok) throw new Error('Something wrong');
       const data = await response.json();
-      // console.log(data)
+      console.log(data,"testestetetetete")
       const action = campaignDetailFetchSuccess(data);
       // return data
       dispatch(action);
