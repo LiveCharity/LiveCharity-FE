@@ -1,0 +1,11 @@
+.livestream-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.livestream-layout {
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+  flex-grow: 1;
+}
