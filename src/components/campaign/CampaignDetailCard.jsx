@@ -27,11 +27,11 @@ export default function CampaignDetailCard({donation}) {
             alt=""
           />
           &nbsp;
-          <span>{donation.User.username}</span>
+          <span>{donation?.User?.username}</span>
         </div>
-        <span style={{fontSize:13}}>{formatDateDistance(donation.createdAt)}</span>
-        <span>Donation {formatCurrency(donation.amount)}</span>
-        <span style={{fontSize:13}}>{donation.comment}</span>
+        <span style={{fontSize:13}}>{formatDateDistance(donation?.createdAt)}</span>
+        <span>Donation {formatCurrency(donation?.amount)}</span>
+        <span style={{fontSize:13}}>{donation?.comment}</span>
         <br />
       </div>
     </>
