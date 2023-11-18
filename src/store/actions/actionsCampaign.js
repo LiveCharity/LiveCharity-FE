@@ -17,15 +17,37 @@ export function campaignDetailFetchSuccess(payload) {
 }
 
 export const campaignFetch = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
       try {
-          const response = await fetch(BASE_URL + '/livestreaming')
+          const response = await fetch(BASE_URL + '/campaign')
           if (!response.ok) throw new Error("Something wrong")
           const data = await response.json()
           console.log(data, "DATA DARI ACTION CAMPAIGN")
           const action = campaignFetchSuccess(data)
           dispatch(action)
           return action
+      } catch (error) {
+          console.log(error)
+          throw error
+      }
+  }
+}
+
+export const campaignDetailFetch = (id) => {
+  return async (dispatch) => {
+      try {
+          const response = await fetch(BASE_URL + '/campaign/' + id,{
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          if (!response.ok) throw new Error("Something wrong")
+          const data = await response.json()
+        // console.log(data)
+          const action = campaignDetailFetchSuccess(data)
+          // return data
+          dispatch(action)
       } catch (error) {
           console.log(error)
           throw error
