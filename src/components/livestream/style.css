@@ -1,0 +1,158 @@
+/* LIVESTREAM HEADER SECTION START */
+.livestream-header {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(15, 15, 15);
+  height: 10vh;
+}
+
+.livestream-header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.livestream-header-text {
+  font-size: 32px;
+  color: #fff;
+  margin: 0;
+  font-weight: bold;
+}
+
+.livestream-header-btn-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.livestream-header-top-up-btn,
+.livestream-header-donate-btn,
+.livestream-header-leave-room-btn {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* LIVESTREAM HEADER SECTION END */
+
+
+/* LIVE CHAT BOX SECTION START */
+.live-chat-box-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(55, 55, 55);
+}
+
+.live-chat-box-container-header {
+  display: flex;
+  background-color: #4a124a;
+  justify-content: center;
+  padding: 16px 24px;
+}
+
+.live-chat-box-container-header-text {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.live-chat-box-list-container {
+  padding: 16px;
+  flex-grow: 1;
+  overflow: auto;
+  padding: 16px;
+  background-color: rgb(55, 55, 55);
+}
+
+.live-chat-box-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 5px;
+  background-color: rgb(97, 97, 97);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.live-chat-box-info-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.live-chat-box-info-name {
+  font-weight: 600;
+}
+
+.live-chat-box-info-name,
+.live-chat-box-info-message {
+  margin: 0;
+  color: #fff;
+}
+
+.live-chat-box-message-form {
+  display: flex;
+  padding: 10px;
+}
+
+.live-chat-box-message-input {
+  flex-grow: 1;
+  padding: 8px;
+  background-color: #8b8b8b;
+  border: none;
+  color: #fff;
+  outline: none;
+  border-radius: 8px;
+}
+/* LIVE CHAT BOX SECTION END */
+
+/* VIEWER COUNT SECTION START */
+.viewer-count-container {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  min-width: 50px;
+  height: 40px;
+}
+
+.viewer-count-text {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+/* VIEWER COUNT SECTION END */
+
+/* LIVESTREAM CONTROLS SECTION START */
+.live-control-container {
+  background-color: rgb(40, 40, 40);
+  height: 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  text-align: center;
+}
+
+.live-control-container button {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0
+}
+/* LIVESTREAM CONTROLS SECTION START */
+
+/* LIVE VIDEO SECTION START */
+.host-mode {
+  height: 90%;
+  width: 100%;
+}
+
+.viewer-mode {
+  height: 100%;
+  width: 100%;
+}
+/* LIVE VIDEO SECTION START */
