@@ -8,6 +8,7 @@ import { loginAPI } from '../api/userAPI';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+
   const [userInput, setUserInput] = useState({
     email: 'dudungxxx@gmail.com',
     password: 'dudungxxx',
@@ -20,6 +21,7 @@ export default function LoginPage() {
       [name]: value,
     });
   };
+
   const handleToRegister = (e) => {
     e.preventDefault();
     navigate('/register');

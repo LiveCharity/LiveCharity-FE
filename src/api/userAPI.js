@@ -11,3 +11,12 @@ export const loginAPI = async (userData) => {
     console.log(err);
   }
 };
+
+export const registerAPI = async (userData) => {
+  try {
+    const { data } = await axios.post(BASE_URL + '/users/register', userData);
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+};

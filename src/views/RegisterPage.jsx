@@ -3,21 +3,35 @@ import './RegisterPage.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
+import { registerAPI } from '../api/userAPI';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+
   const [userInput, setUserInput] = useState({
     email: '',
+    username: '',
     password: '',
   });
 
   const handlerUserInput = (e) => {
-    console.log(e.target.value);
+    const { name, value } = e.target;
+    setUserInput({
+      ...userInput,
+      [name]: value,
+    });
   };
 
   const handleToLogin = (e) => {
     e.preventDefault();
     navigate('/');
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    registerAPI(userInput);
+
+    // navigate('/login');
   };
 
   return (
@@ -40,20 +54,30 @@ export default function RegisterPage() {
                   <h5 style={{ color: '#79C01D' }}>Make a World Better, Start With Us</h5>
                   <h5 style={{ color: '#196898' }}>Register</h5>
                 </div>
-                <Form style={{ width: '70%' }} className="mx-auto">
+                <Form style={{ width: '70%' }} className="mx-auto" onSubmit={handleRegister}>
                   <Form.Group className="mb-3">
                     <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" placeholder="Enter Username" />
+                    <Form.Control
+                      name="username"
+                      type="text"
+                      placeholder="Enter Username"
+                      onChange={handlerUserInput}
+                    />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter Email" />
+                    <Form.Control name="email" type="email" placeholder="Enter Email" onChange={handlerUserInput} />
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter Password" />
+                    <Form.Control
+                      name="password"
+                      type="password"
+                      placeholder="Enter Password"
+                      onChange={handlerUserInput}
+                    />
                     <Form.Text className="text-muted">
-                      Already have an account? Back to{' '}
+                      Already have an account? Back to
                       <a href="" className="icon-link" onClick={handleToLogin}>
                         Login
                       </a>
