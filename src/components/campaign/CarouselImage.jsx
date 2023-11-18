@@ -5,7 +5,7 @@ function CarouselImage({ imageSrc }) {
     <div>
       <img
         src={imageSrc}
-        style={{ width: '100%', height: 'auto', borderRadius: "10px"}}
+        style={{ width: '100%', height: '30em', borderRadius: "10px"}}
       />
     </div>
   );
