@@ -6,8 +6,10 @@ import Logo from '../assets/Logo.png';
 
 import { balance } from '../api/walletAPI';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function NavbarCustom() {
+  const navigation = useNavigate();
   const [isBalance, setIsBalance] = useState(null);
   useEffect(() => {
     balance().then((result) => {
@@ -20,13 +22,13 @@ function NavbarCustom() {
     });
   }, []);
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-tertiary" style={{boxSizing: 'border-box', height: '70px'}}>
       <Container>
-        <Navbar.Brand href="#">
+        <Navbar.Brand onClick={() => navigation('/')}>
           <img
-            src="https://media.discordapp.net/attachments/1146322744103944252/1174652092745527336/LIVE_CHARITY_Logo_-_Original_-_5000x5000_1.png"
+            src="https://i.imgur.com/C0VvbBm.png"
             alt="Logo"
-            style={{ maxHeight: '4em' }}
+            style={{ maxHeight: '4em', cursor: 'pointer' }}
             className="d-inline-block align-top"
           />
         </Navbar.Brand>

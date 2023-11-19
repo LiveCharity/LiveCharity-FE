@@ -3,10 +3,11 @@ import './CampaignDetailPage.css';
 import CampaignDetailCard from '../components/campaign/CampaignDetailCard';
 import { useSelector, useDispatch } from 'react-redux';
 import { campaignDetailFetch } from '../store/actions/actionsCampaign';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export default function CampaignDetailPage() {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -46,8 +47,10 @@ export default function CampaignDetailPage() {
 
   useEffect(() => {
     dispatch(campaignDetailFetch(id))
-      .then(() => {
+      .then((response) => {
         console.log('success fetch detail');
+        const isOwner = Number(localStorage.getItem('id')) === response.UserId
+        localStorage.setItem('isOwner', isOwner);
       })
       .catch((err) => {
         console.log(err);
@@ -66,7 +69,7 @@ export default function CampaignDetailPage() {
           <div className="row">
             <div className="col-md-8">
               <div className="image-campaign mx-auto">
-                <img src={campaign?.thumbnail} alt="" />
+                <img src={campaign?.thumbnail?.startsWith('https') ? campaign?.thumbnail : `http://localhost:3005/${campaign?.thumbnail}`} alt="" />
               </div>
               <div className="description-campaign mt-5 p-3">
                 <h5 style={{ textAlign: 'center' }}>Description</h5>
@@ -95,12 +98,13 @@ export default function CampaignDetailPage() {
               <div className="d-flex flex-column mb-3 gap-3">
                 <h5 style={{ fontSize: 15, textAlign: 'center' }}>Be a good person, do what you want!</h5>
                 {isUserCampaignOwner && (
-                  <button type="button" className="btn btn-outline-danger mx-1">
+                  <button type="button" className="btn btn-outline-danger mx-1" onClick={() => navigation(`/livestream/${campaign.id}/${campaign.roomId
+                  }`)}>
                     Start Live
                   </button>
                 )}
                 {!isUserCampaignOwner && (
-                  <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status}>
+                  <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status} onClick={() => navigation(`/livestream/${campaign.id}/${campaign.roomId}`)}>
                     Join Room
                   </button>
                 )}

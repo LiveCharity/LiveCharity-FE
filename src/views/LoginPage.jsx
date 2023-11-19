@@ -31,7 +31,7 @@ export default function LoginPage() {
   const handleLogin = (e) => {
     e.preventDefault();
     loginAPI(userInput);
-    // navigate('/');
+    navigate('/');
   };
 
   return (

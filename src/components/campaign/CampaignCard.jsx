@@ -33,7 +33,7 @@ function CampaignCard({campaign}) {
 
   return (
     <Card className="Card" style={{ width: '23rem' }}>
-      <Card.Img variant="top" src={campaign?.thumbnail} style={{ height: '20em' }}/>
+      <Card.Img variant="top" src={campaign?.thumbnail.startsWith('https') ? campaign?.thumbnail: `http://localhost:3005/${campaign?.thumbnail}`} style={{ height: '20em' }}/>
       <Card.Body>
         <Card.Title>{campaign?.title}</Card.Title>
         <Card.Text style={{fontSize:10}}>

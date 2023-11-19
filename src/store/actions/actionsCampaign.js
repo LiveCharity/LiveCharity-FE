@@ -44,6 +44,7 @@ export const campaignDetailFetch = (id) => {
       const data = await response.json();
       const action = campaignDetailFetchSuccess(data);
       dispatch(action);
+      return data;
     } catch (error) {
       console.log(error);
       throw error;

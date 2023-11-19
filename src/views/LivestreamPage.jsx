@@ -1,16 +1,17 @@
 import './livestreamPage.css';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { v4 as uuidv4 } from 'uuid';
-import { useParams } from 'react-router-dom';
-import Donation from './Donation';
+import { useParams, useNavigate } from 'react-router-dom';
+import Donation from '../components/formInput/Donation';
 import { useState } from 'react';
+import NavbarCustom from '../components/NavbarCustom';
 
 const LivestreamPage = () => {
-  const { livestreamId } = useParams();
+  const { roomId } = useParams();
   const [showModal, setShowModal] = useState(false);
   const appID = 557011077;
   const serverSecret = "e22904e3796a1266d54229d722ac631d";
-  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, livestreamId,  uuidv4(),  localStorage.getItem('name'));
+  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, "roomId",  uuidv4(),  localStorage.getItem('username'));
 
   const showDonationModal = () => {
     setShowModal(true);
@@ -23,7 +24,7 @@ const LivestreamPage = () => {
       scenario: {
         mode: ZegoUIKitPrebuilt.LiveStreaming,
         config: {
-          role: localStorage.getItem('name') === 'Akbar' ? ZegoUIKitPrebuilt.Host : ZegoUIKitPrebuilt.Audience,
+          role: JSON.parse(localStorage.getItem('isOwner'))? ZegoUIKitPrebuilt.Host : ZegoUIKitPrebuilt.Audience,
         },
       },
     });
@@ -31,22 +32,23 @@ const LivestreamPage = () => {
 
   return (
     <div>
+      <NavbarCustom />
       <div>
         {
-          localStorage.getItem('name') !== 'Akbar' &&
+          !JSON.parse(localStorage.getItem('isOwner')) &&
           <div className="gift-button">
-            <i class="bi bi-gift-fill" style={{fontSize: '30px'}} onClick={showDonationModal}></i>
+            <i className="bi bi-gift-fill" style={{fontSize: '30px'}} onClick={showDonationModal}></i>
           </div>
         }
         <div
           className="myCallContainer"
           ref={myMeeting}
-          style={{ width: '100vw', height: '100vh' }}
+          style={{ width: '100vw', height: 'calc(100vh - 70px)' }}
         >
         </div>
       </div>
       {
-        localStorage.getItem('name') !== 'Akbar' && showModal &&
+        !JSON.parse(localStorage.getItem('isOwner'))&& showModal &&
         <div style={{backgroundColor: 'rgba(0,0,0,.6)', height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute', zIndex: 99999, top: 0}}>
           <Donation setShowModal={setShowModal} />
         </div>
