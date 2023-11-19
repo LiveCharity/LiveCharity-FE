@@ -1,4 +1,5 @@
-import './LoginPage.css';
+// import './LoginPage.css';
+import "./Login.scss";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
@@ -35,25 +36,16 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="outer-container">
-        <div className="container login-container align-items-center">
-          <div className="container ">
-            <div className="row login-slice">
-              <div className="col-12 col-sm-12 col-md-12 col-lg-6">
-                <div className="text-center img-login">
-                  <img
-                    src="https://media.discordapp.net/attachments/1146322744103944252/1174652092745527336/LIVE_CHARITY_Logo_-_Original_-_5000x5000_1.png"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className="login-form col-12 col-sm-12 col-md-12 col-lg-6 my-auto">
-                <div className="text-center">
-                  <h5 style={{ color: '#196898' }}>Welcome to Live Charity</h5>
-                  <h5 style={{ color: '#79C01D' }}>Make a World Better, Start With Us</h5>
-                  <h5 style={{ color: '#196898' }}>Login</h5>
-                </div>
-                <Form style={{ width: '70%' }} className="mx-auto" onSubmit={handleLogin}>
+            <section className="login">
+        <div className="left-section">
+          <img src="/lc.png" alt="Logo" />
+        </div>
+        <div className="right-section">
+          <div className="wrapper">
+            <h1>Welcome to Live Charity</h1>
+            <h1>Make a World Better, Start with us</h1>
+            <h2>Login</h2>
+            <Form style={{ width: '70%' }} className="mx-auto" onSubmit={handleLogin}>
                   <Form.Group className="mb-3">
                     <Form.Label>Email</Form.Label>
                     <Form.Control name="email" type="text" placeholder="Enter Email" onChange={handlerUserInput} />
@@ -77,11 +69,34 @@ export default function LoginPage() {
                     </Button>
                   </div>
                 </Form>
-              </div>
-            </div>
+            {/* <Form
+              form={form_input}
+              onFinish={handleInput}
+              layout="vertical"
+              initialValues={initialFormState}
+            >
+              <Form.Item name="state" hidden={true}>
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="Username"
+                name="username"
+                hidden={slide ? false : true}
+              >
+                <Input placeholder="Enter your username" className="input" />
+              </Form.Item>
+              <Form.Item label="Email" name="email">
+                <Input placeholder="Enter your email" className="input" />
+              </Form.Item>
+              <Form.Item label="Password" name="password">
+                <Input placeholder="Enter your password" className="input" />
+              </Form.Item>
+              <Button htmlType="submit" className="button">Login</Button>
+            </Form> */}
+            <p>Don't have an account? <span onClick={handleToRegister}>Register here</span></p>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
