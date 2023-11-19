@@ -1,95 +1,58 @@
 import './livestreamPage.css';
-import { useEffect, useState } from 'react';
-import LivestreamHeader from '../components/livestream/LivestreamHeader';
-import LivestreamVideoContainer from '../components/livestream/LivestreamVideoContainer';
-import LiveChatBox from '../components/livestream/LiveChatBox';
-import AgoraRTC from 'agora-rtc-sdk-ng';
-import { rtcClient, APP_ID, channelName, token } from '../config/agora';
+import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
+import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router-dom';
+import Donation from './Donation';
+import { useState } from 'react';
 
-export default function LivestreamPage() {
-  const [users, setUsers] = useState([]);
-  const [localTracks, setLocalTracks] = useState([]);
+const LivestreamPage = () => {
+  const { livestreamId } = useParams();
+  const [showModal, setShowModal] = useState(false);
+  const appID = 557011077;
+  const serverSecret = "e22904e3796a1266d54229d722ac631d";
+  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, livestreamId,  uuidv4(),  localStorage.getItem('name'));
 
-  const handleUserJoined = async (user, mediaType) => {
-    await rtcClient.subscribe(user, mediaType);
-    if (mediaType === 'video') {
-      setUsers((previousUsers) => [...previousUsers, user]);
-    }
-
-    if (mediaType === 'audio') {
-      // user.audioTrack.play()
-    }
-  };
-
-  const handleToggleCamera = async () => {
-    if(localTracks[1].muted) {
-      await localTracks[1].setMuted(false);
-    } else {
-      await localTracks[1].setMuted(true);
-    }
+  const showDonationModal = () => {
+    setShowModal(true);
   }
 
-  const handleToggleMic = async () => {
-    if(localTracks[0].muted) {
-      await localTracks[0].setMuted(false);
-    } else {
-      await localTracks[0].setMuted(true);
-    }
-  }
-
-  const handleUserLeft = (user) => {
-    setUsers((previousUsers) =>
-      previousUsers.filter((u) => u.uid !== user.uid)
-    );
+  const myMeeting = async (element) => {
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    zp.joinRoom({
+      container: element,
+      scenario: {
+        mode: ZegoUIKitPrebuilt.LiveStreaming,
+        config: {
+          role: localStorage.getItem('name') === 'Akbar' ? ZegoUIKitPrebuilt.Host : ZegoUIKitPrebuilt.Audience,
+        },
+      },
+    });
   };
-
-  useEffect(() => {
-    rtcClient.on('user-published', handleUserJoined);
-    rtcClient.on('user-left', handleUserLeft);
-
-    rtcClient
-      .join(APP_ID, channelName, token, null)
-      .then((uid) => {
-        return Promise.all([
-          AgoraRTC.createMicrophoneAndCameraTracks(),
-          uid,
-        ])
-      })
-      .then(([tracks, uid]) => {
-        const [audioTrack, videoTrack] = tracks;
-        setLocalTracks(tracks);
-        setUsers((previousUsers) => [
-          ...previousUsers,
-          {
-            uid,
-            videoTrack,
-            audioTrack,
-          },
-        ]);
-        rtcClient.publish(tracks);
-      });
-    return () => {
-      for (let localTrack of localTracks) {
-        localTrack.stop();
-        localTrack.close();
-      }
-      rtcClient.off('user-published', handleUserJoined);
-      rtcClient.off('user-left', handleUserLeft);
-      rtcClient.unpublish(localTracks).then(() => rtcClient.leave());
-    };
-  }, []);
 
   return (
-    <div className="livestream-container">
-      <LivestreamHeader viewerCount={users.length} />
-      <div className="livestream-layout">
-        <LivestreamVideoContainer 
-          users={users} 
-          toggleCamera={handleToggleCamera} 
-          toggleMic={handleToggleMic} 
-        />
-        <LiveChatBox />
+    <div>
+      <div>
+        {
+          localStorage.getItem('name') !== 'Akbar' &&
+          <div className="gift-button">
+            <i class="bi bi-gift-fill" style={{fontSize: '30px'}} onClick={showDonationModal}></i>
+          </div>
+        }
+        <div
+          className="myCallContainer"
+          ref={myMeeting}
+          style={{ width: '100vw', height: '100vh' }}
+        >
+        </div>
       </div>
+      {
+        localStorage.getItem('name') !== 'Akbar' && showModal &&
+        <div style={{backgroundColor: 'rgba(0,0,0,.6)', height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute', zIndex: 99999, top: 0}}>
+          <Donation setShowModal={setShowModal} />
+        </div>
+      }
     </div>
   );
 }
+
+export default LivestreamPage;
