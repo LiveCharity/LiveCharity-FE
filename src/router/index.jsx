@@ -9,6 +9,7 @@ import CampaignDetailPage from '../views/CampaignDetailPage';
 
 import TopUpModal from '../components/modal/TopUpModal';
 import CampaignList from '../views/CampaignList';
+import Donation from '../components/formInput/Donation';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: '/listcampaign',
         element: <CampaignList />,
+      },
+      {
+        path: '/donate',
+        element: <Donation />,
       },
     ],
   },

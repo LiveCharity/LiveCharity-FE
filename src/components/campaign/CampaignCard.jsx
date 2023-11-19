@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { campaignDetailFetch } from '../../store/actions/actionsCampaign';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import "./CampaignCard.css"
 
 function CampaignCard({campaign}) {
 
@@ -25,8 +27,12 @@ function CampaignCard({campaign}) {
         return formatter.format(amount);
       };
 
+      const calculateProgress = () => {
+        return Math.min((campaign.currentFunds / campaign.targetFunds) * 100, 100);
+      };
+
   return (
-    <Card style={{ width: '23rem' }}>
+    <Card className="Card" style={{ width: '23rem' }}>
       <Card.Img variant="top" src={campaign?.thumbnail} style={{ height: '20em' }}/>
       <Card.Body>
         <Card.Title>{campaign?.title}</Card.Title>
@@ -36,7 +42,8 @@ function CampaignCard({campaign}) {
         <Card.Text style={{fontSize:10}}>
           Terkumpul {formatCurrency(campaign?.currentFunds)} dari {formatCurrency(campaign?.targetFunds)}
         </Card.Text>
-        <Button onClick={handleDetailCampaign} variant="primary" className='w-100 mt-auto'>See Campaign</Button> 
+        <ProgressBar animated striped variant="danger" now={calculateProgress()} />
+        <Button onClick={handleDetailCampaign} variant="primary" className='w-100 mt-2'>See Campaign</Button> 
       </Card.Body>
     </Card>
   );
