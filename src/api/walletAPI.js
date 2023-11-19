@@ -46,3 +46,11 @@ export const paymentTopup = async (amount) => {
     },
   });
 };
+
+export const donate = async (data) => {
+  try {
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+};

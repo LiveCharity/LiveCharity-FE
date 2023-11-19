@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { amounts } from '../../../data';
-import { paymentTopup } from '../../api/walletAPI';
+import { paymentTopup, donate } from '../../api/walletAPI';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,19 +10,39 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import './Donation.css';
 function Donation() {
   const { pathname } = useLocation();
-  const [amount, setAmount] = useState(0);
+  const { livestreamId } = useParams();
+
+  const [isInputUser, setIsInputUser] = useState({
+    message: '',
+    amount: 0,
+  });
+
   const handleDonate = (amount) => {
-    setAmount(Number(amount.split('Rp.').join('').split('.').join('')));
+    setIsInputUser({
+      amount: Number(amount.split('Rp.').join('').split('.').join('')),
+    });
   };
 
-  const otherNominal = (e) => {
-    setAmount(Number(e.target.value));
+  const handlerInputUser = (e) => {
+    const { name, value } = e.target;
+    setIsInputUser({
+      ...isInputUser,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    paymentTopup(amount);
-    console.log(amount);
+    if (pathname === '/payment/topup') {
+      paymentTopup(Number(isInputUser.amount));
+    } else {
+      const data = {
+        amount: isInputUser.amount,
+        comment: isInputUser.message,
+        livestreamId,
+      };
+      donate(data);
+    }
   };
 
   return (
@@ -61,8 +81,9 @@ function Donation() {
             type="text"
             placeholder="Enter number"
             pattern="[0-9]*"
-            value={amount}
-            onChange={otherNominal}
+            name="amount"
+            value={isInputUser.amount}
+            onChange={handlerInputUser}
             onInput={(e) => {
               e.target.value = Math.max(0, parseInt(e.target.value) || 0)
                 .toString()
@@ -76,7 +97,13 @@ function Donation() {
         <Form.Group className="mb-3">
           <Form.Label>Message</Form.Label>
           <FloatingLabel controlId="floatingTextarea2" label="your message">
-            <Form.Control as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
+            <Form.Control
+              as="textarea"
+              placeholder="Leave a comment here"
+              name="message"
+              onChange={handlerInputUser}
+              style={{ height: '100px' }}
+            />
           </FloatingLabel>
         </Form.Group>
       ) : (
