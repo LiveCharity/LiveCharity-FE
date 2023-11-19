@@ -1,14 +1,19 @@
-import { useState, useRef } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import { amounts } from '../../../data';
-import { paymentTopup, donate } from '../../api/walletAPI';
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
+import { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { amounts } from '../../../data';
+import { paymentTopup, donate } from '../../api/walletAPI';
+import { notifySucces, notifyError } from '../../../helpers/notification';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 import './Donation.css';
 function Donation() {
+  const navigate = useNavigate();
   const { pathname } = useLocation();
   const { livestreamId } = useParams();
 
@@ -41,7 +46,16 @@ function Donation() {
         comment: isInputUser.message,
         livestreamId,
       };
-      donate(data);
+      donate(data)
+        .then((message) => {
+          notifySucces(message);
+          setTimeout(() => {
+            navigate('/');
+          }, 2000);
+        })
+        .catch((err) => {
+          notifyError(err);
+        });
     }
   };
 
