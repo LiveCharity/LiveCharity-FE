@@ -24,8 +24,8 @@ const formatCurrency = (amount) => {
       <Card.Img variant="top" src={campaign?.thumbnail} style={{ height: '15em' }} />
       <Card.Body>
         <Card.Title>{campaign?.title}</Card.Title>
-        <Card.Text>
-        Terkumpul {formatCurrency(campaign?.currentFunds)} dari {formatCurrency(campaign?.targetFunds)}
+        <Card.Text style={{fontSize:"10px"}}>
+        Funds collected were {formatCurrency(campaign?.currentFunds)} from total funds {formatCurrency(campaign?.targetFunds)}
         </Card.Text>
         <ProgressBar animated striped variant="danger" now={calculateProgress()} />
         <Card.Text style={{fontSize:10}}>
