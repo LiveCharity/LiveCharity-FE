@@ -22,11 +22,17 @@ const router = createBrowserRouter([
         index: true,
         element: <CampaignPage />,
       },
-      
+
       {
         path: '/listcampaign',
         element: <CampaignList />,
       },
+
+      {
+        path: '/payment/topup',
+        element: <Donation />,
+      },
+
       {
         path: '/donate',
         element: <Donation />,
@@ -57,7 +63,6 @@ const router = createBrowserRouter([
     path: '/register',
     element: <RegisterPage />,
   },
-
 ]);
 
 export default router;
