@@ -5,9 +5,11 @@ import CampaignCard from '../components/campaign/CampaignCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { campaignFetch } from '../store/actions/actionsCampaign';
+import { useNavigate } from 'react-router-dom';
 
 export default function CampaignPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const dataCampaign = useSelector((state) => {
     console.log(state, 'ini dari state home');
@@ -21,6 +23,11 @@ export default function CampaignPage() {
       console.log('FETCH BERHASIL DARI CAMPAIGN PAGE');
     });
   }, []);
+
+  const handleToList = (e) =>{
+    e.preventDefault()
+    navigate("/listcampaign")
+  }
 
   return (
     <div className="campaign-container">
@@ -66,7 +73,7 @@ export default function CampaignPage() {
           <div className="card-campaign  mt-5">
             <div className="d-flex justify-content-between">
               <h4>Urgent Campaign</h4>
-              <button type="button" className="btn btn-outline-primary">
+              <button type="button" className="btn btn-outline-primary" onClick={handleToList}>
                 See More
               </button>
             </div>
