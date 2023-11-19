@@ -9,3 +9,18 @@
   grid-template-columns: 9fr 3fr;
   flex-grow: 1;
 }
+
+.gift-button {
+  position: absolute;
+  z-index: 9999;
+  right: 30px;
+  top: 10px;
+  color: #fff;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.gift-button:hover {
+  transform: scale(1.1);
+  color: rgb(199, 199, 33);
+}
