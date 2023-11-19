@@ -4,11 +4,16 @@ import CampaignDetailCard from '../components/campaign/CampaignDetailCard';
 import { useSelector, useDispatch } from "react-redux";
 import {campaignDetailFetch} from "../store/actions/actionsCampaign"
 import {useParams} from "react-router-dom"
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export default function CampaignDetailPage() {
 
   const dispatch = useDispatch()
   const {id} = useParams()
+
+  const calculateProgress = () => {
+    return Math.min((campaign.currentFunds / campaign.targetFunds) * 100, 100);
+  };
 
 
   const campaign = useSelector((state) => {
@@ -101,6 +106,7 @@ export default function CampaignDetailPage() {
               <b>Funds collected</b>
               <h3 className="text-primary">{formatCurrency(campaign.currentFunds)}</h3>
             <h5 style={{ fontSize: 13 }}>Fundraising target {formatCurrency(campaign.targetFunds)}</h5>
+            <ProgressBar animated striped variant="danger" now={calculateProgress()} />
               <div className="d-flex flex-column mb-3 gap-3">
                 <h5 style={{ fontSize: 15, textAlign: 'center' }}>Be a good person, do what you want!</h5>
                 {isUserCampaignOwner && (
