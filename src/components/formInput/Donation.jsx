@@ -9,7 +9,6 @@ import { amounts } from '../../../data';
 import { paymentTopup, donate } from '../../api/walletAPI';
 import { notifySucces, notifyError } from '../../../helpers/notification';
 
-import 'react-toastify/dist/ReactToastify.css';
 import './Donation.css';
 
 function Donation() {

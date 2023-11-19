@@ -39,17 +39,16 @@ const router = createBrowserRouter([
         path: '/addcampaign',
         element: <FormCampaign />,
       },
+      {
+        path: '/detail/:id',
+        element: <CampaignDetailPage />,
+      },
     ],
   },
 
   {
     path: '/livestream/:livestreamId',
     element: <LivestreamPage />,
-  },
-
-  {
-    path: '/detail/:id',
-    element: <CampaignDetailPage />,
   },
 
   {

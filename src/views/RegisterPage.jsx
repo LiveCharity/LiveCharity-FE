@@ -1,39 +1,16 @@
-import { useState } from 'react';
-// import './RegisterPage.css';
-import './Register.scss';
+import { useInputUser } from '../../hooks/useInputUser';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import { registerAPI } from '../api/userAPI';
+
+import './Register.scss';
 
 export default function RegisterPage() {
-  const navigate = useNavigate();
-
-  const [userInput, setUserInput] = useState({
-    email: '',
+  const [_, handleInputChange, handleAuthentication] = useInputUser({
     username: '',
+    email: '',
     password: '',
   });
-
-  const handlerUserInput = (e) => {
-    const { name, value } = e.target;
-    setUserInput({
-      ...userInput,
-      [name]: value,
-    });
-  };
-
-  const handleToLogin = (e) => {
-    e.preventDefault();
-    navigate('/login');
-  };
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-    registerAPI(userInput);
-
-    // navigate('/login');
-  };
 
   return (
     <>
@@ -46,14 +23,20 @@ export default function RegisterPage() {
             <h1>Welcome to Live Charity</h1>
             <h1>Make a World Better, Start with us</h1>
             <h2>Register</h2>
-            <Form style={{ width: '70%' }} className="mx-auto" onSubmit={handleRegister}>
+            <Form
+              style={{ width: '70%' }}
+              className="mx-auto"
+              onSubmit={(e) => {
+                handleAuthentication(e, 'register');
+              }}
+            >
               <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
-                <Form.Control name="username" type="text" placeholder="Enter Username" onChange={handlerUserInput} />
+                <Form.Control name="username" type="text" placeholder="Enter Username" onChange={handleInputChange} />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Email</Form.Label>
-                <Form.Control name="email" type="email" placeholder="Enter Email" onChange={handlerUserInput} />
+                <Form.Control name="email" type="email" placeholder="Enter Email" onChange={handleInputChange} />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -61,7 +44,7 @@ export default function RegisterPage() {
                   name="password"
                   type="password"
                   placeholder="Enter Password"
-                  onChange={handlerUserInput}
+                  onChange={handleInputChange}
                 />
               </Form.Group>
               <div className="d-flex justify-content-center">
@@ -71,7 +54,14 @@ export default function RegisterPage() {
               </div>
             </Form>
             <p>
-              Already have an account? <span onClick={handleToLogin}>Login here</span>
+              Already have an account?{' '}
+              <span
+                onClick={(e) => {
+                  handleAuthentication(e, 'toLogin');
+                }}
+              >
+                Login here
+              </span>
             </p>
           </div>
         </div>
