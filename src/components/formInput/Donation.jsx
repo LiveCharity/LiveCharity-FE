@@ -2,9 +2,11 @@ import { useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { amounts } from '../../../data';
 import { paymentTopup } from '../../api/walletAPI';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
 import './Donation.css';
 function Donation() {
   const { pathname } = useLocation();
@@ -70,6 +72,17 @@ function Donation() {
           />
         </div>
       </Form.Group>
+      {pathname !== '/payment/topup' ? (
+        <Form.Group className="mb-3">
+          <Form.Label>Message</Form.Label>
+          <FloatingLabel controlId="floatingTextarea2" label="your message">
+            <Form.Control as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
+          </FloatingLabel>
+        </Form.Group>
+      ) : (
+        ''
+      )}
+
       <div className="d-flex justify-content-end">
         <Button variant="success" type="submit">
           {pathname === '/payment/topup' ? 'Topup' : 'Donate'}
