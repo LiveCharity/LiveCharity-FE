@@ -9,14 +9,13 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CampaignPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const dataCampaign = useSelector((state) => {
-    console.log(state, 'ini dari state home');
+  const campaignData = useSelector((state) => {
     return state.campaignReducer.campaign;
   });
-  const displayedData = dataCampaign.slice(0, 3);
-  const displayedData2 = dataCampaign.slice(3, 6);
+  // const displayedData = dataCampaign.slice(0, 3);
+  // const displayedData2 = dataCampaign.slice(3, 6);
 
   useEffect(() => {
     dispatch(campaignFetch()).then(() => {
@@ -24,10 +23,10 @@ export default function CampaignPage() {
     });
   }, []);
 
-  const handleToList = (e) =>{
-    e.preventDefault()
-    navigate("/listcampaign")
-  }
+  const handleToList = (e) => {
+    e.preventDefault();
+    navigate('/listcampaign');
+  };
 
   return (
     <div className="campaign-container">
@@ -57,33 +56,27 @@ export default function CampaignPage() {
             </Carousel.Item>
           </Carousel>
         </div>
-        <div className="continer">
-          <div className="card-campaign  mt-5">
-            <div className="d-flex justify-content-between">
-              <h4>Latest Campaign</h4>
-            </div>
-            <div className="flex-row d-flex justify-content-center gap-5 mt-3">
-              {displayedData.map((campaign) => {
-                return <CampaignCard campaign={campaign} key={campaign.id} />;
-              })}
-            </div>
-          </div>
-        </div>
-        <div className="continer">
-          <div className="card-campaign  mt-5">
-            <div className="d-flex justify-content-between">
-              <h4>Urgent Campaign</h4>
-              <button type="button" className="btn btn-outline-primary" onClick={handleToList}>
-                See More
-              </button>
-            </div>
-            <div className="flex-row d-flex justify-content-center gap-5 mt-3">
-              {displayedData2.map((campaign) => {
-                return <CampaignCard campaign={campaign} key={campaign.id} />;
-              })}
-            </div>
-          </div>
-        </div>
+        {campaignData
+          ? campaignData.map((campaign) => {
+              return campaign.Livestreams.length !== 0 ? (
+                <div className="continer" key={campaign.id}>
+                  <div className="card-campaign  mt-5">
+                    <div className="d-flex justify-content-between">
+                      <h4>{campaign.name}</h4>
+                      <button type="button" className="btn btn-outline-primary" onClick={handleToList}>
+                        See More
+                      </button>
+                    </div>
+                    <div className="flex-row d-flex justify-content-center gap-5 mt-3">
+                      {campaign.Livestreams.slice(0, 3).map((campaign) => {
+                        return <CampaignCard key={campaign.id} campaign={campaign} />;
+                      })}
+                    </div>
+                  </div>
+                </div>
+              ) : null;
+            })
+          : null}
       </div>
     </div>
   );
