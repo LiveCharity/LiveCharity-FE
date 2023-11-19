@@ -7,6 +7,8 @@ import CampaignPage from '../views/CampaignPage';
 import CampaignDetailPage from '../views/CampaignDetailPage';
 import TopUpModal from '../components/modal/TopUpModal';
 import CampaignList from '../views/CampaignList';
+import Donation from '../components/formInput/Donation';
+import FormCampaign from '../components/formInput/FormCampaign';
 
 const router = createBrowserRouter([
   {
@@ -18,10 +20,24 @@ const router = createBrowserRouter([
         index: true,
         element: <CampaignPage />,
       },
-      
+
       {
         path: '/listcampaign',
         element: <CampaignList />,
+      },
+
+      {
+        path: '/payment/topup',
+        element: <Donation />,
+      },
+
+      {
+        path: '/donate',
+        element: <Donation />,
+      },
+      {
+        path: '/addcampaign',
+        element: <FormCampaign />,
       },
     ],
   },
@@ -45,7 +61,6 @@ const router = createBrowserRouter([
     path: '/register',
     element: <RegisterPage />,
   }
-
 ]);
 
 export default router;

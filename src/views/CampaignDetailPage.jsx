@@ -1,18 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import './CampaignDetailPage.css';
 import CampaignDetailCard from '../components/campaign/CampaignDetailCard';
-import { useSelector, useDispatch } from "react-redux";
-import {campaignDetailFetch} from "../store/actions/actionsCampaign"
-import {useParams} from "react-router-dom"
+import { useSelector, useDispatch } from 'react-redux';
+import { campaignDetailFetch } from '../store/actions/actionsCampaign';
+import { useParams } from 'react-router-dom';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 export default function CampaignDetailPage() {
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const dispatch = useDispatch()
-  const {id} = useParams()
-
+  const calculateProgress = () => {
+    return Math.min((campaign.currentFunds / campaign.targetFunds) * 100, 100);
+  };
 
   const campaign = useSelector((state) => {
-    console.log(state, "INI DETAIL DARI DETAIL");
+    console.log(state, 'INI DETAIL DARI DETAIL');
     return state.campaignReducer.detailCampaign;
   });
 
@@ -33,23 +36,23 @@ export default function CampaignDetailPage() {
   const [visibleCardCount, setVisibleCardCount] = useState(initialCardCount);
   // const totalCardCount = 20; // Total number of cards
 
-  const totalCardCount = campaign?.Donations?.length
+  const totalCardCount = campaign?.Donations?.length;
 
   const handleSeeMore = () => {
     // Increase the visible card count by a certain number when "See More" is clicked
     const incrementBy = 6; // You can adjust this value based on your preference
     setVisibleCardCount((prevCount) => prevCount + incrementBy);
   };
-  
-  useEffect(() =>{
+
+  useEffect(() => {
     dispatch(campaignDetailFetch(id))
-    .then(() =>{
-      console.log('success fetch detail')
-    })
-    .catch((err) =>{
-      console.log(err)
-    })
-  },[])
+      .then(() => {
+        console.log('success fetch detail');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <>
@@ -68,52 +71,36 @@ export default function CampaignDetailPage() {
               <div className="description-campaign mt-5 p-3">
                 <h5 style={{ textAlign: 'center' }}>Description</h5>
                 <hr />
-                <p style={{ textAlign: 'justify' }}>
-                  {campaign?.description}
-                </p>
+                <p style={{ textAlign: 'justify' }}>{campaign?.description}</p>
               </div>
-              {
-                campaign?.Donations?.length ? <>
-                              <div className="donator-campaign mt-5 p-3">
-                <h5 style={{ textAlign: 'center' }}>Thanks for Charity</h5>
-                <hr />
-                <div className="d-flex justify-content-center gap-4 flex-wrap">
-                {campaign.Donations.map((donation) => (
-                  <CampaignDetailCard key={donation.id} donation={donation}/>
-                ))}
-                  
-                  {/* {[...Array(visibleCardCount)].map((_, index) => (
-                    <CampaignDetailCard key={index} />
-                  ))} */}
-                  {/* {visibleCardCount < totalCardCount && (
-                    <div className="text-center mt-3">
-                      <button className="btn btn-outline-primary" onClick={handleSeeMore}>
-                        See More
-                      </button>
+              {campaign?.Donations?.length ? (
+                <>
+                  <div className="donator-campaign mt-5 p-3">
+                    <h5 style={{ textAlign: 'center' }}>Thanks for Charity</h5>
+                    <hr />
+                    <div className="d-flex justify-content-center gap-4 flex-wrap">
+                      {campaign.Donations.map((donation) => (
+                        <CampaignDetailCard key={donation.id} donation={donation} />
+                      ))}
                     </div>
-                  )} */}
-                </div>
-              </div> 
-                </> : null
-              }
+                  </div>
+                </>
+              ) : null}
             </div>
             <div className="col-md-4 detail-right p-3">
               <b>Funds collected</b>
               <h3 className="text-primary">{formatCurrency(campaign.currentFunds)}</h3>
-            <h5 style={{ fontSize: 13 }}>Fundraising target {formatCurrency(campaign.targetFunds)}</h5>
+              <h5 style={{ fontSize: 13 }}>Fundraising target {formatCurrency(campaign.targetFunds)}</h5>
+              <ProgressBar animated striped variant="danger" now={calculateProgress()} />
               <div className="d-flex flex-column mb-3 gap-3">
                 <h5 style={{ fontSize: 15, textAlign: 'center' }}>Be a good person, do what you want!</h5>
                 {isUserCampaignOwner && (
-          <button type="button" className="btn btn-outline-danger mx-1">
-            Start Live
-          </button>
-        )}
-              {!isUserCampaignOwner && (
-                  <button
-                    type="button"
-                    className="btn btn-outline-warning mx-1"
-                    disabled={!campaign.status}
-                  >
+                  <button type="button" className="btn btn-outline-danger mx-1">
+                    Start Live
+                  </button>
+                )}
+                {!isUserCampaignOwner && (
+                  <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status}>
                     Join Room
                   </button>
                 )}
