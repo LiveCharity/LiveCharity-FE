@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import { useNavigateCustome } from './useNavigate';
+import { useRouterCustom } from './useNavigate';
 
 import { loginAPI, registerAPI } from '../src/api/userAPI';
 import { notifySucces, notifyError } from '../helpers/notification';
 
 export const useInputUser = (initialState) => {
-  const [navigateToRoute] = useNavigateCustome();
+  const [navigateToRoute] = useRouterCustom();
   const [state, setState] = useState(initialState);
 
   const handleInputChange = (e) => {

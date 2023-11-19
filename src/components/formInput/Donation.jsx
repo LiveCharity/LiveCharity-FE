@@ -4,6 +4,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useRouterCustom } from '../../../hooks/useNavigate';
 
 import { amounts } from '../../../data';
 import { paymentTopup, donate } from '../../api/walletAPI';
@@ -12,9 +13,8 @@ import { notifySucces, notifyError } from '../../../helpers/notification';
 import './Donation.css';
 
 function Donation() {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const { livestreamId } = useParams();
+  const [navigateToRoute, params, pathname] = useRouterCustom();
+  const { livestreamId } = params;
 
   const [isInputUser, setIsInputUser] = useState({
     message: '',
@@ -49,7 +49,7 @@ function Donation() {
         .then((message) => {
           notifySucces(message);
           setTimeout(() => {
-            navigate(`/detail/${livestreamId}`);
+            navigateToRoute(`/detail/${livestreamId}`);
           }, 2000);
         })
         .catch((err) => {

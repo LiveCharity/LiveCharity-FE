@@ -1,11 +1,13 @@
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams, useLocation } from 'react-router';
 
-export const useNavigateCustome = () => {
+export const useRouterCustom = () => {
   const navigate = useNavigate();
+  const params = useParams();
+  const { pathname } = useLocation();
 
   const navigateToRoute = (routeName) => {
     navigate(routeName);
   };
 
-  return [navigateToRoute];
+  return [navigateToRoute, params, pathname];
 };
