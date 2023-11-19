@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/:livestreamId/donate',
+        path: '/donate/:livestreamId',
         element: <Donation />,
       },
       {

@@ -10,8 +10,8 @@ import { paymentTopup, donate } from '../../api/walletAPI';
 import { notifySucces, notifyError } from '../../../helpers/notification';
 
 import 'react-toastify/dist/ReactToastify.css';
-
 import './Donation.css';
+
 function Donation() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -50,7 +50,7 @@ function Donation() {
         .then((message) => {
           notifySucces(message);
           setTimeout(() => {
-            navigate('/');
+            navigate(`/detail/${livestreamId}`);
           }, 2000);
         })
         .catch((err) => {

@@ -6,6 +6,8 @@ import { campaignDetailFetch } from '../store/actions/actionsCampaign';
 import { useParams } from 'react-router-dom';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
+import { Link } from 'react-router-dom';
+
 export default function CampaignDetailPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -104,9 +106,9 @@ export default function CampaignDetailPage() {
                     Join Room
                   </button>
                 )}
-                <button type="button" className="btn btn-outline-success mx-1">
+                <Link to={`/donate/${campaign.id}`} className="btn btn-outline-success mx-1">
                   Donate
-                </button>
+                </Link>
               </div>
             </div>
           </div>
