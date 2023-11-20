@@ -3,20 +3,24 @@ import { BASE_URL } from '.';
 
 export const loginAPI = async (userData) => {
   try {
-    const { data } = await axios.post(BASE_URL + '/users/login', userData);
-    localStorage.access_token = data.access_token;
-    localStorage.username = data.username;
-    localStorage.id = data.id;
+    const { data: response } = await axios.post(BASE_URL + '/users/login', userData);
+
+    localStorage.access_token = response.access_token;
+    localStorage.username = response.username;
+    localStorage.id = response.id;
+
+    return 'Success login';
   } catch (err) {
-    console.log(err);
+    throw err.response.data.message;
   }
 };
 
 export const registerAPI = async (userData) => {
   try {
-    const { data } = await axios.post(BASE_URL + '/users/register', userData);
-    console.log(data);
+    const { data: response } = await axios.post(BASE_URL + '/users/register', userData);
+
+    return response.message;
   } catch (err) {
-    console.log(err);
+    throw err.response.data.message;
   }
 };

@@ -8,7 +8,7 @@ function App() {
     <ReduxProvider store={store}>
       <RouterProvider router={router} />
     </ReduxProvider>
-  )
+  );
 }
 
-export default App
+export default App;
