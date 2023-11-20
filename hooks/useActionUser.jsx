@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouterCustom } from './useNavigate';
 import { balance } from '../src/api/walletAPI';
 import { formatter } from '../helpers/formatter';
-import { notifyError } from '../helpers/notification';
+import { notifySucces, notifyError } from '../helpers/notification';
 
 export const useActionUser = (initialState) => {
   const [navigateToRoute] = useRouterCustom();
@@ -14,7 +14,10 @@ export const useActionUser = (initialState) => {
       navigateToRoute(routeName);
     } else if (localStorage.access_token) {
       localStorage.clear();
-      navigateToRoute('/login');
+
+      notifySucces('Success logout');
+
+      setTimeout(() => navigateToRoute('/login'), 2000);
     } else {
       navigateToRoute('/login');
     }
@@ -24,6 +27,7 @@ export const useActionUser = (initialState) => {
     const fetchBalance = async () => {
       try {
         const isBalance = await balance();
+
         setState(formatter.format(isBalance));
       } catch (err) {
         notifyError('Something wrong');
