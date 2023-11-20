@@ -12,6 +12,7 @@ export default function CampaignPage() {
   const navigate = useNavigate();
 
   const campaignData = useSelector((state) => {
+    console.log(state);
     return state.campaignReducer.campaign;
   });
 
