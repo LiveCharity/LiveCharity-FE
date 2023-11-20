@@ -5,7 +5,7 @@ const headers = { headers: { access_token: localStorage.access_token } };
 
 export const balance = async () => {
   try {
-    const { data: balance } = await axios.get(BASE_URL + '/livestream/balance', headers);
+    const { data: balance } = await axios.get(BASE_URL + '/users/balance', headers);
     return balance.message.balance;
   } catch (err) {
     console.log(err);
