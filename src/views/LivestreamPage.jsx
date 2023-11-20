@@ -2,7 +2,6 @@ import './livestreamPage.css';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { v4 as uuidv4 } from 'uuid';
 import { useParams } from 'react-router-dom';
-import Donation from './Donation';
 import { useState } from 'react';
 
 const LivestreamPage = () => {

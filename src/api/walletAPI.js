@@ -46,3 +46,12 @@ export const paymentTopup = async (amount) => {
     },
   });
 };
+
+export const donate = async (data) => {
+  try {
+    const { data: donate } = await axios.post(BASE_URL + '/livestream/donate', data, headers);
+    return donate.message;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};

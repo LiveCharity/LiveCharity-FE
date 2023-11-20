@@ -32,12 +32,16 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/donate',
+        path: '/donate/:livestreamId',
         element: <Donation />,
       },
       {
         path: '/addcampaign',
         element: <FormCampaign />,
+      },
+      {
+        path: '/detail/:id',
+        element: <CampaignDetailPage />,
       },
     ],
   },
@@ -48,11 +52,6 @@ const router = createBrowserRouter([
   },
 
   {
-    path: '/detail/:id',
-    element: <CampaignDetailPage />,
-  },
-
-  {
     path: '/login',
     element: <LoginPage />,
   },
@@ -60,7 +59,7 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <RegisterPage />,
-  }
+  },
 ]);
 
 export default router;
