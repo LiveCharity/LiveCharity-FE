@@ -69,7 +69,7 @@ export default function CampaignList() {
     <>
       <div className="container">
         <div style={{ textAlign: 'center', color: '#072366' }} className="mt-5">
-          <h1>List Campaign</h1>
+          <span style={{ fontWeight: 800, fontSize: '40px' }}>List Campaign</span>
         </div>
         <div className="row">
           <div className="col-md-2 mt-5">

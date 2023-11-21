@@ -71,7 +71,7 @@ export default function MyCampaign() {
     <>
       <div className="container">
         <div style={{ textAlign: 'center', color: '#072366' }} className="mt-5">
-          <h1>My Campaign</h1>
+          <span style={{ fontWeight: 800, fontSize: '40px' }}>My Campaign</span>
         </div>
         <div className="row">
           <div className="col-md-2 mt-5">
@@ -170,7 +170,7 @@ export default function MyCampaign() {
             <div className="d-flex flex-wrap gap-3 justify-content-center mt-5">
               {campaignPagenation.length !== 0 ? (
                 campaignPagenation.rows.length === 0 ? (
-                  <div className="d-flex align-items-center justify-content-center vh-100">
+                  <div className="d-flex align-items-center justify-content-center">
                     <div className="text-center">
                       <img
                         src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/ad42057889c385dd8f84b8330f69269b.gif"

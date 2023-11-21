@@ -1,13 +1,20 @@
-import Button from "react-bootstrap/Button";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import "./FormCampaign.css";
-
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import './FormCampaign.css';
+import { useState } from 'react';
+import Image from 'react-bootstrap/Image';
+import Col from 'react-bootstrap/Col';
 function FormCampaign() {
+  const [isImage, setIsImage] = useState('');
+  const handleFile = (e) => {
+    setIsImage(URL.createObjectURL(e.target.files[0]));
+  };
+
   return (
     <div className="container">
       <Form className="w-50 mx-auto mt-5 form-campaign">
-        <h2 style={{ textAlign: "center" }}>Add New Campaign</h2>
+        <h2 style={{ textAlign: 'center' }}>Add New Campaign</h2>
         <hr />
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
@@ -19,11 +26,15 @@ function FormCampaign() {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Expired Date</Form.Label>
-          <Form.Control type="date"/>
+          <Form.Control type="date" />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Thumbnail</Form.Label>
-          <Form.Control type="file"/>
+          <Form.Control type="file" onChange={handleFile} />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Image src={isImage} rounded width="580px" />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Category</Form.Label>
@@ -39,18 +50,14 @@ function FormCampaign() {
         <Form.Group className="mb-3">
           <Form.Label>Description</Form.Label>
           <FloatingLabel controlId="floatingTextarea2" label="Description">
-            <Form.Control
-              as="textarea"
-              placeholder="Leave a comment here"
-              style={{ height: "100px" }}
-            />
+            <Form.Control as="textarea" placeholder="Leave a comment here" style={{ height: '100px' }} />
           </FloatingLabel>
         </Form.Group>
         <div className="d-flex justify-content-end">
-        <Button variant="primary" type="submit">
-          Start Campaign
-        </Button>
-      </div>
+          <Button variant="primary" type="submit">
+            Start Campaign
+          </Button>
+        </div>
       </Form>
     </div>
   );
