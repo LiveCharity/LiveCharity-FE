@@ -48,10 +48,10 @@ export default function CampaignList() {
   };
 
   useEffect(() => {
-    console.log(isPage, count, 'perjanan count');
+    // console.log(isPage, count, 'perjanan count');
     if (isPage >= count) {
       dispatch(campaignPagenationFetch(isCategory.join(','), count));
-      console.log('count perjalanan next');
+      // console.log('count perjalanan next');
     }
   }, [count, isPage]);
 
@@ -61,63 +61,63 @@ export default function CampaignList() {
     }
   }, [campaignPagenation]);
 
-  console.log(count, '@@@@@@@@@@IS count', isPage, '@@@@@@@@@@@@@@@@@ is page');
+  // console.log(count, '@@@@@@@@@@IS count', isPage, '@@@@@@@@@@@@@@@@@ is page');
   // console.log(campaignPagenation, Math.ceil(campaignPagenation.count / 9));
   // console.log(isCategory, '@@@@@category');
   // console.log(campaignPagenation);
   return (
     <>
       <div className="container">
-      <div style={{textAlign:'center', color: '#072366'}} className='mt-5'>
-        <h1>List Campaign</h1>
+        <div style={{ textAlign: 'center', color: '#072366' }} className="mt-5">
+          <span style={{ fontWeight: 800, fontSize: '40px' }}>List Campaign</span>
         </div>
         <div className="row">
           <div className="col-md-2 mt-5">
-            <div className='d-flex justify-content-center mb-3'>
-            <span style={{textAlign:"center", fontSize:20, color: '#072366'}}>Filter by Category</span>
+            <div className="d-flex justify-content-center mb-3">
+              <span style={{ textAlign: 'center', fontSize: 20, color: '#072366' }}>Filter by Category</span>
             </div>
-          <Dropdown>
-      <Dropdown.Toggle variant="light" className='w-100'>
-        Category
-      </Dropdown.Toggle>
+            <Dropdown>
+              <Dropdown.Toggle variant="light" className="w-100">
+                Category
+              </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-      <nav className="menubar" style={{padding: 10}}>
-              <ul>
-                <li>
-                  <span style={{ fontWeight: 'bold' }}>Category</span>
-                </li>
-                <ul className="sub-menu">
-                  <li>
-                    <input type="checkbox" name="disaster" value="1" onChange={handleInputChange} />
-                    <span>Disaster</span>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="social" value="2" onChange={handleInputChange} />
-                    <span>Social</span>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="education" value="3" onChange={handleInputChange} />
-                    <span>Education</span>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="health" value="4" onChange={handleInputChange} />
-                    <span>Health</span>
-                  </li>
-                </ul>
-              </ul>
-            </nav>
-            <div style={{textAlign:"center"}}>
-              <button
-                onClick={() => handlePagenation()}
-                type="button"
-                className="btn btn-outline-primary btn-block w-85"
-              >
-                Apply
-              </button>
-            </div>
-      </Dropdown.Menu>
-    </Dropdown>
+              <Dropdown.Menu>
+                <nav className="menubar" style={{ padding: 10 }}>
+                  <ul>
+                    <li>
+                      <span style={{ fontWeight: 'bold' }}>Category</span>
+                    </li>
+                    <ul className="sub-menu">
+                      <li>
+                        <input type="checkbox" name="disaster" value="1" onChange={handleInputChange} />
+                        <span>Disaster</span>
+                      </li>
+                      <li>
+                        <input type="checkbox" name="social" value="2" onChange={handleInputChange} />
+                        <span>Social</span>
+                      </li>
+                      <li>
+                        <input type="checkbox" name="education" value="3" onChange={handleInputChange} />
+                        <span>Education</span>
+                      </li>
+                      <li>
+                        <input type="checkbox" name="health" value="4" onChange={handleInputChange} />
+                        <span>Health</span>
+                      </li>
+                    </ul>
+                  </ul>
+                </nav>
+                <div style={{ textAlign: 'center' }}>
+                  <button
+                    onClick={() => handlePagenation()}
+                    type="button"
+                    className="btn btn-outline-primary btn-block w-85"
+                  >
+                    Apply
+                  </button>
+                </div>
+              </Dropdown.Menu>
+            </Dropdown>
             {/* <nav className="menubar">
               <ul>
                 <li>
