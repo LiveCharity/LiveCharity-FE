@@ -34,10 +34,10 @@ function CampaignCard({ campaign }) {
     <Card className="Card" style={{ width: '23rem' }}>
       <Card.Img variant="top" src={campaign?.thumbnail} style={{ height: '20em' }} />
       <Card.Body>
-        <Card.Title>{campaign?.title}</Card.Title>
-        <Card.Text style={{ fontSize: 10 }}>Creator LiveCharity</Card.Text>
-        <Card.Text style={{ fontSize: 10 }}>
-          Terkumpul {formatCurrency(campaign?.currentFunds)} dari {formatCurrency(campaign?.targetFunds)}
+        <Card.Title style={{fontWeight:"bold"}}>{campaign?.title}</Card.Title>
+        <Card.Text style={{ fontSize: 13, color:"#808080" }}>Creator LiveCharity</Card.Text>
+        <Card.Text style={{ fontSize: 13 }}>
+        Funds collected {formatCurrency(campaign?.currentFunds)} from total funds {formatCurrency(campaign?.targetFunds)}
         </Card.Text>
         <ProgressBar animated striped variant="danger" now={calculateProgress()} />
         <Button onClick={handleDetailCampaign} variant="primary" className="w-100 mt-2">

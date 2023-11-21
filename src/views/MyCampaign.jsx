@@ -6,7 +6,7 @@ import { campaignPagenationFetch } from '../store/actions/actionsCampaign';
 import Pagination from 'react-bootstrap/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-export default function CampaignList() {
+export default function MyCampaign() {
   const dispatch = useDispatch();
 
   const [isCategory, setIsCategory] = useState([]);
@@ -68,8 +68,8 @@ export default function CampaignList() {
   return (
     <>
       <div className="container">
-      <div style={{textAlign:'center', color: '#072366'}} className='mt-5'>
-        <h1>List Campaign</h1>
+        <div style={{textAlign:'center', color: '#072366'}} className='mt-5'>
+        <h1>My Campaign</h1>
         </div>
         <div className="row">
           <div className="col-md-2 mt-5">
