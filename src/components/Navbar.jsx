@@ -16,9 +16,9 @@ function NavbarCustom() {
         <Navbar.Brand>
           <Link to="/">
             <img
-              src="https://media.discordapp.net/attachments/1146322744103944252/1174652092745527336/LIVE_CHARITY_Logo_-_Original_-_5000x5000_1.png"
+              src="https://i.imgur.com/BzlZfzc.png"
               alt="Logo"
-              style={{ maxHeight: '4em' }}
+              style={{ maxHeight: '2em' }}
               className="d-inline-block align-top"
             />
           </Link>
@@ -27,7 +27,7 @@ function NavbarCustom() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Nav.Link href="#home">Fundraiser</Nav.Link>
-            <Nav.Link href="#home">Donation</Nav.Link>
+            <Link className='nav-link' to={'/mycampaign'}>My Campaign</Link>
             <NavDropdown title="Balance" className={!localStorage.access_token ? 'd-none' : ''}>
               <NavDropdown.Item>Balance {state}</NavDropdown.Item>
               <NavDropdown.Item>

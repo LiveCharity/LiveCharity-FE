@@ -19,13 +19,13 @@ export default function FooterCus()  {
             <h5>Profile</h5>
             <p>Follow us on social media:</p>
             <a href="#" className="text-dark me-2">
-              <i className="bi bi-facebook" style={{ fontSize: '2rem' }}></i>
+              <i className="bi bi-facebook text-light" style={{ fontSize: '2rem' }}></i>
             </a>
             <a href="#" className="text-dark me-2">
-              <i className="bi bi-twitter" style={{ fontSize: '2rem' }}></i>
+              <i className="bi bi-twitter text-light" style={{ fontSize: '2rem' }}></i>
             </a>
             <a href="#" className="text-dark me-2">
-              <i className="bi bi-linkedin" style={{ fontSize: '2rem' }}></i>
+              <i className="bi bi-linkedin text-light" style={{ fontSize: '2rem' }}></i>
             </a>
           </div>
         </div>
