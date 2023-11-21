@@ -1,16 +1,13 @@
-// import './LoginPage.css';
-import './Login.scss';
+import { useInputUser } from '../../hooks/useInputUser';
+import { ToastContainer } from 'react-toastify';
+
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { loginAPI } from '../api/userAPI';
+import './Login.scss';
 
 export default function LoginPage() {
-  const navigate = useNavigate();
-
-  const [userInput, setUserInput] = useState({
+  const [_, handleInputChange, handleAuthentication] = useInputUser({
     email: '',
     password: '',
   });
@@ -37,6 +34,7 @@ export default function LoginPage() {
   return (
     <>
       <section className="login">
+        <ToastContainer />
         <div className="left-section">
           <img src="/lc.png" alt="Logo" />
         </div>
@@ -45,10 +43,16 @@ export default function LoginPage() {
             <h1>Welcome to Live Charity</h1>
             <h1>Make a World Better, Start with us</h1>
             <h2>Login</h2>
-            <Form style={{ width: '70%' }} className="mx-auto" onSubmit={handleLogin}>
+            <Form
+              style={{ width: '70%' }}
+              className="mx-auto"
+              onSubmit={(e) => {
+                handleAuthentication(e, 'login');
+              }}
+            >
               <Form.Group className="mb-3">
                 <Form.Label>Email</Form.Label>
-                <Form.Control name="email" type="text" placeholder="Enter Email" onChange={handlerUserInput} />
+                <Form.Control name="email" type="text" placeholder="Enter Email" onChange={handleInputChange} />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Password</Form.Label>
@@ -56,7 +60,7 @@ export default function LoginPage() {
                   name="password"
                   type="password"
                   placeholder="Enter Password"
-                  onChange={handlerUserInput}
+                  onChange={handleInputChange}
                 />
                 <Form.Text className="text-muted">Don't have an account? Register first</Form.Text>
               </Form.Group>
@@ -64,13 +68,26 @@ export default function LoginPage() {
                 <Button variant="outline-primary" type="submit">
                   Login
                 </Button>
-                <Button onClick={handleToRegister} variant="outline-primary" type="submit">
+                <Button
+                  onClick={(e) => {
+                    handleAuthentication(e, 'toRegister');
+                  }}
+                  variant="outline-primary"
+                  type="submit"
+                >
                   Register
                 </Button>
               </div>
             </Form>
             <p>
-              Don't have an account? <span onClick={handleToRegister}>Register here</span>
+              Don't have an account?
+              <span
+                onClick={(e) => {
+                  handleAuthentication(e, 'toRegister');
+                }}
+              >
+                Register here
+              </span>
             </p>
           </div>
         </div>

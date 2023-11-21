@@ -11,7 +11,7 @@ const LivestreamPage = () => {
   const [showModal, setShowModal] = useState(false);
   const appID = 557011077;
   const serverSecret = "e22904e3796a1266d54229d722ac631d";
-  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, "roomId",  uuidv4(),  localStorage.getItem('username'));
+  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomId,  uuidv4(),  localStorage.getItem('username'));
 
   const showDonationModal = () => {
     setShowModal(true);

@@ -1,24 +1,69 @@
-import CampaignListCard from "../components/campaign/CampaignListCard";
-import "./CampaignList.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { campaignFetch } from "../store/actions/actionsCampaign";
-import Pagination from "react-bootstrap/Pagination";
+import CampaignListCard from '../components/campaign/CampaignListCard';
+import './CampaignList.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { campaignPagenationFetch } from '../store/actions/actionsCampaign';
+import Pagination from 'react-bootstrap/Pagination';
 
 export default function CampaignList() {
   const dispatch = useDispatch();
 
-  const dataCampaign = useSelector((state) => {
-    console.log(state, "ini dari LISTTTTTT ANJAY");
-    return state.campaignReducer.campaign;
+  const [isCategory, setIsCategory] = useState([]);
+  const [isPage, setIsPage] = useState(0);
+  const [count, setCount] = useState(1);
+
+  const campaignPagenation = useSelector((state) => {
+    return state.campaignReducer.pagenationCampaign;
   });
 
   useEffect(() => {
-    dispatch(campaignFetch()).then(() => {
-      console.log("FETCH BERHASIL DARI CAMPAIGN PAGE");
-    });
+    dispatch(campaignPagenationFetch());
   }, []);
 
+  const handleInputChange = (e) => {
+    const { checked, value } = e.target;
+    if (checked) {
+      setIsCategory([...isCategory, e.target.value]);
+    } else {
+      setIsCategory((prevItems) => prevItems.filter((item) => item !== value));
+    }
+  };
+
+  const handlePagenation = () => {
+    dispatch(campaignPagenationFetch(isCategory.join(',')));
+    setIsPage(0);
+  };
+
+  const pageCamapignNext = () => {
+    if (count !== isPage) {
+      setCount(count + 1);
+    }
+  };
+
+  const pageCamapignPrevious = () => {
+    if (count !== 1) {
+      setCount(count - 1);
+    }
+  };
+
+  useEffect(() => {
+    console.log(isPage, count, 'perjanan count');
+    if (isPage >= count) {
+      dispatch(campaignPagenationFetch(isCategory.join(','), count));
+      console.log('count perjalanan next');
+    }
+  }, [count, isPage]);
+
+  useEffect(() => {
+    if (!Array.isArray(campaignPagenation) && isPage == 0) {
+      setIsPage(Math.ceil(campaignPagenation.count / 9));
+    }
+  }, [campaignPagenation]);
+
+  console.log(count, '@@@@@@@@@@IS count', isPage, '@@@@@@@@@@@@@@@@@ is page');
+  // console.log(campaignPagenation, Math.ceil(campaignPagenation.count / 9));
+  // console.log(isCategory, '@@@@@category');
+  // console.log(campaignPagenation);
   return (
     <>
       <div className="container">
@@ -27,23 +72,23 @@ export default function CampaignList() {
             <nav className="menubar">
               <ul>
                 <li>
-                  <span style={{ fontWeight: "bold" }}>Category</span>
+                  <span style={{ fontWeight: 'bold' }}>Category</span>
                 </li>
                 <ul className="sub-menu">
                   <li>
-                    <input type="radio" name="category" />
+                    <input type="checkbox" name="disaster" value="1" onChange={handleInputChange} />
                     <span>Disaster</span>
                   </li>
                   <li>
-                    <input type="radio" name="category" />
+                    <input type="checkbox" name="social" value="2" onChange={handleInputChange} />
                     <span>Social</span>
                   </li>
                   <li>
-                    <input type="radio" name="category" />
+                    <input type="checkbox" name="education" value="3" onChange={handleInputChange} />
                     <span>Education</span>
                   </li>
                   <li>
-                    <input type="radio" name="category" />
+                    <input type="checkbox" name="health" value="4" onChange={handleInputChange} />
                     <span>Health</span>
                   </li>
                 </ul>
@@ -51,7 +96,8 @@ export default function CampaignList() {
             </nav>
             <div>
               <button
-                type="submit"
+                onClick={() => handlePagenation()}
+                type="button"
                 className="btn btn-outline-primary btn-block w-100"
               >
                 Apply
@@ -60,16 +106,20 @@ export default function CampaignList() {
           </div>
           <div className="col-md-10">
             <div className="d-flex flex-wrap gap-3 justify-content-center mt-5">
-              {dataCampaign.map((campaign) => {
-                return (
-                  <CampaignListCard campaign={campaign} key={campaign.id} />
-                );
-              })}
+              {campaignPagenation.length !== 0
+                ? campaignPagenation.rows.map((campaign) => {
+                    return <CampaignListCard campaign={campaign} key={campaign.id} />;
+                  })
+                : null}
             </div>
             <div className="container mt-5">
               <Pagination className="d-flex ms-4">
-                <Pagination.First><i className="bi bi-caret-left" style={{fontSize:"12px"}}></i>Previous</Pagination.First>
-                <Pagination.Last>Next<i className="bi bi-caret-right" style={{fontSize:"12px"}}></i></Pagination.Last>
+                <Pagination.First onClick={() => pageCamapignPrevious()}>
+                  <i className="bi bi-caret-left" style={{ fontSize: '12px' }}></i>Previous
+                </Pagination.First>
+                <Pagination.Last onClick={() => pageCamapignNext()}>
+                  Next<i className="bi bi-caret-right" style={{ fontSize: '12px' }}></i>
+                </Pagination.Last>
               </Pagination>
             </div>
           </div>
