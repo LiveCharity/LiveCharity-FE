@@ -9,6 +9,7 @@ import TopUpModal from '../components/modal/TopUpModal';
 import CampaignList from '../views/CampaignList';
 import Donation from '../components/formInput/Donation';
 import FormCampaign from '../components/formInput/FormCampaign';
+import MyCampaign from '../views/MyCampaign';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
         path: '/detail/:id',
         element: <CampaignDetailPage />,
       },
+      {
+        path: '/mycampaign',
+        element: <MyCampaign />,
+      },
+
     ],
   },
 

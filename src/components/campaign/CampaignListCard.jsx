@@ -21,14 +21,20 @@ function CampaignListCard({ campaign }) {
     <Card className="Card" style={{ width: '20rem' }}>
       <Card.Img variant="top" src={campaign?.thumbnail} style={{ height: '15em' }} />
       <Card.Body>
-        <Card.Title>{campaign?.title}</Card.Title>
-        <Card.Text style={{ fontSize: '10px' }}>
-          Funds collected were {formatCurrency(campaign?.currentFunds)} from total funds
+        <div className='row'>
+          <div className='col-8'>
+        <Card.Title style={{fontWeight:"bold"}}>{campaign?.title}</Card.Title>
+          </div>
+          <div className='col-4'>
+        <Card.Text className='badge bg-secondary' style={{ fontSize: 13 }}>{campaign?.CategoryId}</Card.Text>
+          </div>
+        </div>
+        <Card.Text style={{ fontSize: 13 }}>
+          Funds collected {formatCurrency(campaign?.currentFunds)} from total funds
           {formatCurrency(campaign?.targetFunds)}
         </Card.Text>
-        <Card.Text style={{ fontSize: '10px' }}>{campaign?.CategoryId}</Card.Text>
         <ProgressBar animated striped variant="danger" now={calculateProgress()} />
-        <Card.Text style={{ fontSize: 10 }}>Creator LiveCharity</Card.Text>
+        <Card.Text style={{ fontSize: 13, color:"#808080", marginTop:"5px" }}>Creator LiveCharity</Card.Text>
         <Button variant="success" className="w-100">
           Donate
         </Button>

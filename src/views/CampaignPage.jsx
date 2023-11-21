@@ -38,6 +38,10 @@ export default function CampaignPage() {
                   'https://70867a2ef4c36f4d1885-185a360f54556c7e8b9c7a9b6e422c6e.ssl.cf6.rackcdn.com/file/2023-01-16/e5Er8Mco871r.jpg'
                 }
               />
+              <Carousel.Caption style={{fontWeight:"bold", background:"rgba(250, 235, 215, 0.2)" }}>
+                <h2>Wujudkan harapan #Untuksesama</h2>
+                <p>Sebuah gotong royong untuk membantu sesama agar mendapat pengobatan yang optimal</p>
+              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <CarouselImage
@@ -45,6 +49,10 @@ export default function CampaignPage() {
                   'https://70867a2ef4c36f4d1885-185a360f54556c7e8b9c7a9b6e422c6e.ssl.cf6.rackcdn.com/file/2023-11-08/A4NDkT9yEgYa.jpg'
                 }
               />
+              <Carousel.Caption style={{fontWeight:"bold", background:"rgba(250, 235, 215, 0.2)"}}>
+                <h2>WE STAND FOR PALESTINIAN!</h2>
+                <p>Satukan Solidaritas, Bantu dan #JAGAPALESTINA</p>
+              </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <CarouselImage
@@ -52,6 +60,10 @@ export default function CampaignPage() {
                   'https://70867a2ef4c36f4d1885-185a360f54556c7e8b9c7a9b6e422c6e.ssl.cf6.rackcdn.com/file/2023-02-14/kZtCJjkEyOrI.jpg'
                 }
               />
+              <Carousel.Caption style={{fontWeight:"bold", background:"rgba(250, 235, 215, 0.2)"}}>
+                <h2>Berbagi Rutin Setiap Bulan</h2>
+                <p>Yuk, tunjukkan kepedulian terhadap sesama dengan menjadi #temanSehati</p>
+              </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
         </div>
@@ -61,7 +73,7 @@ export default function CampaignPage() {
                 <div className="continer" key={campaign.id}>
                   <div className="card-campaign  mt-5">
                     <div className="d-flex justify-content-between">
-                      <h4>{campaign.name}</h4>
+                      <span style={{fontWeight:"bold", fontSize:30}}>{campaign.name}</span>
                       <button type="button" className="btn btn-outline-primary" onClick={handleToList}>
                         See More
                       </button>
