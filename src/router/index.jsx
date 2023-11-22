@@ -9,12 +9,17 @@ import TopUpModal from '../components/modal/TopUpModal';
 import CampaignList from '../views/CampaignList';
 import Donation from '../components/formInput/Donation';
 import FormCampaign from '../components/formInput/FormCampaign';
+import { redirect } from 'react-router-dom';
 import MyCampaign from '../views/MyCampaign';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <LayoutHome />,
+    loader: () => {
+      localStorage.removeItem('isOwner')
+      return !localStorage.getItem('access_token') ? redirect('/') : null;
+    },
     children: [
       {
         path: '/',
@@ -51,12 +56,11 @@ const router = createBrowserRouter([
 
     ],
   },
-
+  
   {
     path: '/livestream/:livestreamId',
     element: <LivestreamPage />,
   },
-
   {
     path: '/login',
     element: <LoginPage />,

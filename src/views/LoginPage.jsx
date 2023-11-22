@@ -12,6 +12,25 @@ export default function LoginPage() {
     password: '',
   });
 
+  const handlerUserInput = (e) => {
+    const { name, value } = e.target;
+    setUserInput({
+      ...userInput,
+      [name]: value,
+    });
+  };
+
+  const handleToRegister = (e) => {
+    e.preventDefault();
+    navigate('/register');
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    loginAPI(userInput);
+    navigate('/');
+  };
+
   return (
     <>
       <section className="login">

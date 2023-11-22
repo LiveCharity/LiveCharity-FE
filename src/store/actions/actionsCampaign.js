@@ -3,8 +3,10 @@ import {
   CAMPAIGN_DETAIL_FETCH_SUCCESS,
   CAMPAIGN_PAGENATION_FETCH_SUCCESS,
   CAMPAIGN_PAGENATION_USER_FETCH_SUCCESS,
+  CAMPAIGN_ADD_SUCCESS
 } from './actionsType';
 import { BASE_URL } from '../../api';
+import axios from 'axios';
 
 export function campaignFetchSuccess(payload) {
   return {
@@ -30,6 +32,13 @@ export function campaignPagenationUserFetchSuccess(payload) {
 export function campaignDetailFetchSuccess(payload) {
   return {
     type: CAMPAIGN_DETAIL_FETCH_SUCCESS,
+    payload,
+  };
+}
+
+export function campaignAddSuccess(payload) {
+  return {
+    type: CAMPAIGN_ADD_SUCCESS,
     payload,
   };
 }
@@ -113,9 +122,30 @@ export const campaignDetailFetch = (id) => {
       const data = await response.json();
       const action = campaignDetailFetchSuccess(data);
       dispatch(action);
+      return data;
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
 };
+
+export const addCampaign = (form) => {
+  return async() => {
+    console.log(form);
+    try {
+      const { data } = await axios({
+        url: BASE_URL + '/campaign',
+        method: 'POST',
+        headers: {
+          'access_token': localStorage.getItem('access_token'),
+          'Content-Type': 'multipart/form-data'
+        },
+        data: form
+      });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+}

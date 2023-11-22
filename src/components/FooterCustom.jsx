@@ -1,7 +1,7 @@
 import React from 'react';
-import './FooterCus.css'
+import './FooterCustom.css'
 
-export default function FooterCus()  {
+export default function FooterCustom()  {
   return (
     <footer className="footer-blue text-light py-3 mt-5" style={{ fontSize: '20px' }}>
       <div className="container">
