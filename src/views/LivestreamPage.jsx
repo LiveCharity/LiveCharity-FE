@@ -11,6 +11,8 @@ import NavbarCustom from '../components/NavbarCustom';
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { notifySucces } from '../../helpers/notification';
+import { ToastContainer } from 'react-toastify';
 const MySwal = withReactContent(Swal)
 
 const LivestreamPage = () => {
@@ -67,11 +69,12 @@ const LivestreamPage = () => {
       setDonateMessage(donateMessage);
       setCurrentFunds(donateMessage.currentFunds);
       setTargetFunds(donateMessage.targetFunds);
-      MySwal.fire({
-        icon: 'success',
-        title: 'Saweria',
-        text: `${donateMessage.user} telah melakukan donasi sebesar ${donateMessage.nominal}`
-      })
+      // MySwal.fire({
+      //   icon: 'success',
+      //   title: 'Saweria',
+      //   text: `${donateMessage.user} telah melakukan donasi sebesar ${donateMessage.nominal}`
+      // })
+      notifySucces(`${donateMessage.user} telah melakukan donasi sebesar ${donateMessage.nominal}`)
     })
   }
 
@@ -94,7 +97,7 @@ const LivestreamPage = () => {
   useEffect(() => {
     const fetchCurrentLive = async() => {
       const { data: currentLive } = await axios({
-        url: 'http://final-project-server.taufikaf.xyz/campaign/' + livestreamId,
+        url: BASE_URL + '/campaign/' + livestreamId,
         method: 'GET'
       });
       localStorage.setItem('currentLiveOwnerId', currentLive.UserId);
@@ -107,6 +110,7 @@ const LivestreamPage = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div>
         <NavbarCustom />
         {
@@ -133,15 +137,6 @@ const LivestreamPage = () => {
           <div
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'absolute', left: '0', right: '0', bottom: '0', top: '0', backgroundColor: 'rgba(0, 0, 0, .5)' }}
           >
-            <div>
-              <button
-                className='btn btn-danger'
-                type='button'
-                onClick={() => setShowDonate(false)}
-              >
-                Close
-              </button>
-            </div>
             <DonationInRoom
               setShowDonation={setShowDonate}
               user={user}

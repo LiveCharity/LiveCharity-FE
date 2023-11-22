@@ -8,8 +8,8 @@ import { useRouterCustom } from '../../../hooks/useNavigate';
 import { amounts } from '../../../data';
 import { paymentTopup, donate } from '../../api/walletAPI';
 import { notifySucces, notifyError } from '../../../helpers/notification';
-
 import './Donation.css';
+import { Link } from 'react-router-dom';
 
 function Donation() {
   const [navigateToRoute, params, pathname] = useRouterCustom();
@@ -122,9 +122,12 @@ function Donation() {
         ''
       )}
 
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end gap-4">
         <Button variant="success" type="submit">
           {pathname === '/payment/topup' ? 'Topup' : 'Donate'}
+        </Button>
+        <Button variant="danger" type="button">
+          <Link to={'/'} style={{textDecoration: 'none', color: '#fff'}}>Cancel</Link>
         </Button>
       </div>
     </Form>

@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import './CampaignListCard.css';
+import { Link } from 'react-router-dom';
 
 function CampaignListCard({ campaign }) {
   const formatCurrency = (amount) => {
@@ -37,8 +38,8 @@ function CampaignListCard({ campaign }) {
         </Card.Text>
         <ProgressBar animated striped variant="danger" now={calculateProgress()} />
         <Card.Text style={{ fontSize: 13, color: '#808080', marginTop: '5px' }}>Creator LiveCharity</Card.Text>
-        <Button variant="success" className="w-100">
-          Donate
+        <Button variant="primary" className="w-100">
+          <Link to={`/detail/${campaign.id}`} style={{textDecoration: 'none', color: '#fff'}}>See Campaign</Link>
         </Button>
       </Card.Body>
     </Card>

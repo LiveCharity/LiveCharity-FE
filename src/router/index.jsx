@@ -58,7 +58,7 @@ const router = createBrowserRouter([
   },
   
   {
-    path: '/livestream/:livestreamId',
+    path: '/livestream/:livestreamId/:roomId',
     element: <LivestreamPage />,
   },
   {

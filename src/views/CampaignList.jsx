@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { campaignPagenationFetch } from '../store/actions/actionsCampaign';
 import Pagination from 'react-bootstrap/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
+import CustomLoading from '../components/CustomLoading';
 
 export default function CampaignList() {
   const dispatch = useDispatch();
@@ -12,13 +13,23 @@ export default function CampaignList() {
   const [isCategory, setIsCategory] = useState([]);
   const [isPage, setIsPage] = useState(0);
   const [count, setCount] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const campaignPagenation = useSelector((state) => {
     return state.campaignReducer.pagenationCampaign;
   });
 
   useEffect(() => {
-    dispatch(campaignPagenationFetch());
+    setLoading(true);
+    dispatch(campaignPagenationFetch())
+      .then(() => {})
+      .catch((err) => console.log(err))
+      .finally(() => {
+        window.scrollTo({
+          top: 0
+        })
+        setLoading(false);
+      });
   }, []);
 
   const handleInputChange = (e) => {
@@ -65,6 +76,11 @@ export default function CampaignList() {
   // console.log(campaignPagenation, Math.ceil(campaignPagenation.count / 9));
   // console.log(isCategory, '@@@@@category');
   // console.log(campaignPagenation);
+
+  if(loading) {
+    return <CustomLoading />
+  }
+  
   return (
     <>
       <div className="container">
@@ -163,10 +179,20 @@ export default function CampaignList() {
             </div>
             <div className="container mt-5">
               <Pagination className="d-flex ms-4">
-                <Pagination.First onClick={() => pageCamapignPrevious()}>
+                <Pagination.First onClick={() => {
+                  pageCamapignPrevious();
+                  window.scrollTo({
+                    top: 0
+                  })
+                }}>
                   <i className="bi bi-caret-left" style={{ fontSize: '12px' }}></i>Previous
                 </Pagination.First>
-                <Pagination.Last onClick={() => pageCamapignNext()}>
+                <Pagination.Last onClick={() => {
+                  pageCamapignNext();
+                  window.scrollTo({
+                    top: 0
+                  })
+                }}>
                   Next<i className="bi bi-caret-right" style={{ fontSize: '12px' }}></i>
                 </Pagination.Last>
               </Pagination>
