@@ -1,7 +1,7 @@
 import React from 'react';
-import './FooterCus.css'
+import './FooterCustom.css'
 
-export default function FooterCus()  {
+export default function FooterCustom()  {
   return (
     <footer className="footer-blue text-light py-3 mt-5" style={{ fontSize: '20px' }}>
       <div className="container">
@@ -19,13 +19,13 @@ export default function FooterCus()  {
             <h5>Profile</h5>
             <p>Follow us on social media:</p>
             <a href="#" className="text-dark me-2">
-              <i className="bi bi-facebook" style={{ fontSize: '2rem' }}></i>
+              <i className="bi bi-facebook text-light" style={{ fontSize: '2rem' }}></i>
             </a>
             <a href="#" className="text-dark me-2">
-              <i className="bi bi-twitter" style={{ fontSize: '2rem' }}></i>
+              <i className="bi bi-twitter text-light" style={{ fontSize: '2rem' }}></i>
             </a>
             <a href="#" className="text-dark me-2">
-              <i className="bi bi-linkedin" style={{ fontSize: '2rem' }}></i>
+              <i className="bi bi-linkedin text-light" style={{ fontSize: '2rem' }}></i>
             </a>
           </div>
         </div>

@@ -96,15 +96,39 @@ export default function CampaignDetailPage() {
               <ProgressBar animated striped variant="danger" now={calculateProgress()} />
               <div className="d-flex flex-column mb-3 gap-3">
                 <h5 style={{ fontSize: 15, textAlign: 'center' }}>Be a good person, do what you want!</h5>
-                {isUserCampaignOwner && (
-                  <button type="button" className="btn btn-outline-danger mx-1">
+                {/* TWILIO */}
+                {/* {isUserCampaignOwner && (
+                  <Link to={`/twiliostream/${campaign.id}`} className="btn btn-outline-success mx-1">
                     Start Live
-                  </button>
+                  </Link>
+                )} */}
+                {/* ZEGO */}
+                {isUserCampaignOwner && (
+                  <Link to={`/livestream/${campaign.id}`} className="btn btn-outline-success mx-1">
+                    Start Live
+                  </Link>
                 )}
+                {/* TWILIO */}
+                {/* {!isUserCampaignOwner && (
+                  // <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status}>
+                  //   Join Room
+                  // </button>
+                  <Link to={`/twiliostream/${campaign.id}`} className="btn btn-outline-success mx-1">
+                    Join
+                  </Link>
+                )}
+                <Link to={`/donate/${campaign.id}`} className="btn btn-outline-success mx-1">
+                  Donate
+                </Link> */}
+
+                {/* ZEGO CLOUD */}
                 {!isUserCampaignOwner && (
-                  <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status}>
-                    Join Room
-                  </button>
+                  // <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status}>
+                  //   Join Room
+                  // </button>
+                  <Link to={`/livestream/${campaign.id}`} className="btn btn-outline-success mx-1">
+                    Join
+                  </Link>
                 )}
                 <Link to={`/donate/${campaign.id}`} className="btn btn-outline-success mx-1">
                   Donate
