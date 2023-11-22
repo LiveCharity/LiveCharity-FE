@@ -94,7 +94,7 @@ const LivestreamPage = () => {
   useEffect(() => {
     const fetchCurrentLive = async() => {
       const { data: currentLive } = await axios({
-        url: 'http://localhost:3005/campaign/' + livestreamId,
+        url: 'http://final-project-server.taufikaf.xyz/campaign/' + livestreamId,
         method: 'GET'
       });
       localStorage.setItem('currentLiveOwnerId', currentLive.UserId);

@@ -16,7 +16,7 @@ function CampaignListCard({ campaign }) {
   const calculateProgress = () => {
     return Math.min((campaign.currentFunds / campaign.targetFunds) * 100, 100);
   };
-
+  
   return (
     <Card className="Card" style={{ width: '20rem' }}>
       <Card.Img variant="top" src={campaign?.thumbnail} style={{ height: '15em' }} />
@@ -27,7 +27,7 @@ function CampaignListCard({ campaign }) {
           </div>
           <div className="col-4">
             <Card.Text className="badge bg-secondary" style={{ fontSize: 13 }}>
-              {campaign?.Category.name}
+              {campaign?.Category?.name}
             </Card.Text>
           </div>
         </div>

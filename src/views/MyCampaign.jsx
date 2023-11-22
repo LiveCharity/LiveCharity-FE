@@ -17,7 +17,7 @@ export default function MyCampaign() {
     return state.campaignReducer.pagenationUserCampaign;
   });
 
-  // console.log(campaignPagenation, '@@@@@@@@@@');
+  console.log(campaignPagenation, '@@@@@@@@@@');
 
   useEffect(() => {
     dispatch(campaignPagenationUserFetch());
@@ -66,7 +66,7 @@ export default function MyCampaign() {
   // console.log(count, '@@@@@@@@@@IS count', isPage, '@@@@@@@@@@@@@@@@@ is page');
   // console.log(campaignPagenation, Math.ceil(campaignPagenation.count / 9));
   // console.log(isCategory, '@@@@@category');
-  // console.log(campaignPagenation);
+  console.log(campaignPagenation);
   return (
     <>
       <div className="container">
