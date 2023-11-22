@@ -2,11 +2,11 @@ import CampaignListCard from '../components/campaign/CampaignListCard';
 import './CampaignList.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { campaignPagenationFetch } from '../store/actions/actionsCampaign';
+import { campaignPagenationUserFetch } from '../store/actions/actionsCampaign';
 import Pagination from 'react-bootstrap/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-export default function CampaignList() {
+export default function MyCampaign() {
   const dispatch = useDispatch();
 
   const [isCategory, setIsCategory] = useState([]);
@@ -14,11 +14,13 @@ export default function CampaignList() {
   const [count, setCount] = useState(1);
 
   const campaignPagenation = useSelector((state) => {
-    return state.campaignReducer.pagenationCampaign;
+    return state.campaignReducer.pagenationUserCampaign;
   });
 
+  // console.log(campaignPagenation, '@@@@@@@@@@');
+
   useEffect(() => {
-    dispatch(campaignPagenationFetch());
+    dispatch(campaignPagenationUserFetch());
   }, []);
 
   const handleInputChange = (e) => {
@@ -31,7 +33,7 @@ export default function CampaignList() {
   };
 
   const handlePagenation = () => {
-    dispatch(campaignPagenationFetch(isCategory.join(',')));
+    dispatch(campaignPagenationUserFetch(isCategory.join(',')));
     setIsPage(0);
   };
 
@@ -48,10 +50,10 @@ export default function CampaignList() {
   };
 
   useEffect(() => {
-    // console.log(isPage, count, 'perjanan count');
+    console.log(isPage, count, 'perjanan count');
     if (isPage >= count) {
-      dispatch(campaignPagenationFetch(isCategory.join(','), count));
-      // console.log('count perjalanan next');
+      dispatch(campaignPagenationUserFetch(isCategory.join(','), count));
+      console.log('count perjalanan next');
     }
   }, [count, isPage]);
 
@@ -69,7 +71,7 @@ export default function CampaignList() {
     <>
       <div className="container">
         <div style={{ textAlign: 'center', color: '#072366' }} className="mt-5">
-          <span style={{ fontWeight: 800, fontSize: '40px' }}>List Campaign</span>
+          <span style={{ fontWeight: 800, fontSize: '40px' }}>My Campaign</span>
         </div>
         <div className="row">
           <div className="col-md-2 mt-5">
@@ -154,20 +156,56 @@ export default function CampaignList() {
             </div> */}
           </div>
           <div className="col-md-10">
-            <div className="d-flex flex-wrap gap-3 justify-content-center mt-5">
+            {/* <div className="d-flex flex-wrap gap-3 justify-content-center mt-5">
               {campaignPagenation.length !== 0
                 ? campaignPagenation.rows.map((campaign) => {
+                    {
+                      campaign ? console.log('true') : console.log('false');
+                    }
+
                     return <CampaignListCard campaign={campaign} key={campaign.id} />;
                   })
                 : null}
+            </div> */}
+            <div className="d-flex flex-wrap gap-3 justify-content-center mt-5">
+              {campaignPagenation.length !== 0 ? (
+                campaignPagenation.rows.length === 0 ? (
+                  <div className="d-flex align-items-center justify-content-center">
+                    <div className="text-center">
+                      <img
+                        src="https://cdn.dribbble.com/users/1175431/screenshots/6188233/media/ad42057889c385dd8f84b8330f69269b.gif"
+                        alt=""
+                        style={{
+                          width: '40em',
+                          borderRadius: '40px',
+                          marginBottom: '10px',
+                        }}
+                      />
+                      <p className="fs-3">
+                        <span className="text-danger">Opps!</span> My List is Empty.
+                      </p>
+                      <p className="lead">Unfortunately, your list is still empty. Please add campaign first.</p>
+                      <a href="index.html" className="btn btn-primary">
+                        Fundraiser
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  campaignPagenation.rows.map((campaign) => {
+                    return <CampaignListCard campaign={campaign} key={campaign.id} />;
+                  })
+                )
+              ) : null}
             </div>
             <div className="container mt-5">
               <Pagination className="d-flex ms-4">
                 <Pagination.First onClick={() => pageCamapignPrevious()}>
-                  <i className="bi bi-caret-left" style={{ fontSize: '12px' }}></i>Previous
+                  <i className="bi bi-caret-left" style={{ fontSize: '12px' }}></i>
+                  Previous
                 </Pagination.First>
                 <Pagination.Last onClick={() => pageCamapignNext()}>
-                  Next<i className="bi bi-caret-right" style={{ fontSize: '12px' }}></i>
+                  Next
+                  <i className="bi bi-caret-right" style={{ fontSize: '12px' }}></i>
                 </Pagination.Last>
               </Pagination>
             </div>

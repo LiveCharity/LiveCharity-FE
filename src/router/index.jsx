@@ -10,6 +10,7 @@ import CampaignList from '../views/CampaignList';
 import Donation from '../components/formInput/Donation';
 import FormCampaign from '../components/formInput/FormCampaign';
 import { redirect } from 'react-router-dom';
+import MyCampaign from '../views/MyCampaign';
 
 const router = createBrowserRouter([
   {
@@ -48,11 +49,16 @@ const router = createBrowserRouter([
         path: '/detail/:id',
         element: <CampaignDetailPage />,
       },
+      {
+        path: '/mycampaign',
+        element: <MyCampaign />,
+      },
+
     ],
   },
   
   {
-    path: '/livestream/:campaignId/:roomId',
+    path: '/livestream/:livestreamId',
     element: <LivestreamPage />,
   },
   {

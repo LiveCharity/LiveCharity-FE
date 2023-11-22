@@ -1,56 +1,118 @@
-import Button from "react-bootstrap/Button";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
-import Form from "react-bootstrap/Form";
-import "./FormCampaign.css";
+import Button from 'react-bootstrap/Button';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
+import './FormCampaign.css';
+import { useState } from 'react';
+import Image from 'react-bootstrap/Image';
+import { useDispatch } from 'react-redux';
+import { addCampaign } from '../../store/actions/actionsCampaign';
+import { notifyError, notifySucces } from '../../../helpers/notification';
+import { useNavigate } from 'react-router-dom';
 
 function FormCampaign() {
+  const [isImage, setIsImage] = useState('');
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+  const handleFile = (e) => {
+    setCampaignForm((prev) => {
+      return {
+        ...prev,
+        thumbnail: e.target.files[0]
+      }
+    })
+    setIsImage(URL.createObjectURL(e.target.files[0]));
+  };
+  
+
+  const [campaignForm, setCampaignForm] = useState({
+    title: '',
+    targetFunds: 0,
+    expireDate: '',
+    thumbnail: '',
+    categoryId: 1,
+    description: ''
+  })
+
+  const handleInputChange = (e) => {
+    const { name, value, files, type } = e.target;
+    console.log(e.target.files);
+    setCampaignForm((prevForm) => {
+      return {
+        ...prevForm,
+        [name]: value
+      }
+    });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', campaignForm.title);
+    formData.append('targetFunds', campaignForm.targetFunds);
+    formData.append('expireDate', campaignForm.expireDate);
+    formData.append('image', campaignForm.thumbnail);
+    formData.append('categoryId', campaignForm.categoryId);
+    formData.append('description', campaignForm.description);
+    console.log()
+     dispatch(addCampaign(formData))
+      .then(() => {
+        notifySucces('Success add campaign');
+        setTimeout(() => {
+          navigation('/');
+        }, 1000);
+      })
+      .catch((err) => {
+        notifyError(err.response.data.message);
+      })
+  }
+
   return (
-    <div className="container">
+    <div className="container" onSubmit={handleSubmit}>
       <Form className="w-50 mx-auto mt-5 form-campaign">
-        <h2 style={{ textAlign: "center" }}>Add New Campaign</h2>
+        <h2 style={{ textAlign: 'center' }}>Add New Campaign</h2>
         <hr />
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
-          <Form.Control type="text" placeholder="Enter Title" />
+          <Form.Control type="text" name="title" value={campaignForm.title} onChange={handleInputChange} placeholder="Enter Title" />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Target Funds</Form.Label>
-          <Form.Control type="number" placeholder="Target Funds" />
+          <Form.Control type="number" name="targetFunds" value={campaignForm.targetFunds} onChange={handleInputChange} placeholder="Target Funds" />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Expired Date</Form.Label>
-          <Form.Control type="date"/>
+          <Form.Control type="date"  name="expireDate" value={campaignForm.expireDate} onChange={handleInputChange}/>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Thumbnail</Form.Label>
-          <Form.Control type="file"/>
+          <Form.Control type="file" name="image" onChange={handleFile} />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Image src={isImage} rounded style={{width: '100%'}} />
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Category</Form.Label>
           <FloatingLabel controlId="floatingSelect" label="Choose Category">
-            <Form.Select aria-label="Floating label select example">
-              <option value="Disaster">Disaster</option>
-              <option value="Social">Social</option>
-              <option value="Education">Education</option>
-              <option value="Health">Health</option>
+            <Form.Select aria-label="Floating label select example" name="categoryId" value={campaignForm.categoryId} onChange={handleInputChange}>
+              <option value={1}>Disaster</option>
+              <option value={2}>Social</option>
+              <option value={3}>Education</option>
+              <option value={4}>Health</option>
             </Form.Select>
           </FloatingLabel>
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Description</Form.Label>
           <FloatingLabel controlId="floatingTextarea2" label="Description">
-            <Form.Control
-              as="textarea"
-              placeholder="Leave a comment here"
-              style={{ height: "100px" }}
-            />
+            <Form.Control as="textarea" name="description" value={campaignForm.description} onChange={handleInputChange} placeholder="Leave a comment here" style={{ height: '100px' }} />
           </FloatingLabel>
         </Form.Group>
         <div className="d-flex justify-content-end">
-        <Button variant="primary" type="submit">
-          Start Campaign
-        </Button>
-      </div>
+          <Button variant="primary" type="submit">
+            Start Campaign
+          </Button>
+        </div>
       </Form>
     </div>
   );
