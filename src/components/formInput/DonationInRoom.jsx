@@ -11,6 +11,7 @@ import { paymentTopup, donate } from '../../api/walletAPI';
 import './Donation.css';
 import { BASE_URL } from '../../api';
 import axios from 'axios';
+import { notifyError } from '../../../helpers/notification';
 
 function DonationInRoom({ setShowDonation, user }) {
   const [navigateToRoute, params, pathname] = useRouterCustom();
@@ -55,6 +56,8 @@ function DonationInRoom({ setShowDonation, user }) {
           setShowDonation(false)
         })
         .catch(err => {
+          setShowDonation(false);
+          notifyError(err.response.data.message);
           console.log(err?.response?.data || err)
         })
     }
@@ -125,10 +128,19 @@ function DonationInRoom({ setShowDonation, user }) {
         ''
       )}
 
-      <div className="d-flex justify-content-end">
+      <div className="d-flex justify-content-end gap-4">
         <Button variant="success" type="submit">
           {pathname === '/payment/topup' ? 'Topup' : 'Donate'}
         </Button>
+        <div>
+          <button
+            className='btn btn-danger'
+            type='button'
+            onClick={() => setShowDonation(false)}
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </Form>
   );

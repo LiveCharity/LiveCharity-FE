@@ -5,19 +5,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { campaignDetailFetch } from '../store/actions/actionsCampaign';
 import { useParams } from 'react-router-dom';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-
 import { Link } from 'react-router-dom';
+import CustomLoading from '../components/CustomLoading';
 
 export default function CampaignDetailPage() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   const calculateProgress = () => {
     return Math.min((campaign.currentFunds / campaign.targetFunds) * 100, 100);
   };
 
   const campaign = useSelector((state) => {
-    console.log(state, 'INI DETAIL DARI DETAIL');
+    // console.log(state, 'INI DETAIL DARI DETAIL');
     return state.campaignReducer.detailCampaign;
   });
 
@@ -47,14 +48,25 @@ export default function CampaignDetailPage() {
   };
 
   useEffect(() => {
+    setLoading(true);
     dispatch(campaignDetailFetch(id))
       .then(() => {
         console.log('success fetch detail');
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => {
+        setLoading(false);
+        window.scrollTo({
+          top: 0
+        })
+      })
   }, []);
+
+  if(loading) {
+    return <CustomLoading />
+  }
 
   return (
     <>
@@ -104,7 +116,7 @@ export default function CampaignDetailPage() {
                 )} */}
                 {/* ZEGO */}
                 {isUserCampaignOwner && (
-                  <Link to={`/livestream/${campaign.id}`} className="btn btn-outline-success mx-1">
+                  <Link to={`/livestream/${campaign.id}/${campaign.roomId}`} className="btn btn-outline-success mx-1">
                     Start Live
                   </Link>
                 )}
@@ -126,7 +138,7 @@ export default function CampaignDetailPage() {
                   // <button type="button" className="btn btn-outline-warning mx-1" disabled={!campaign.status}>
                   //   Join Room
                   // </button>
-                  <Link to={`/livestream/${campaign.id}`} className="btn btn-outline-success mx-1">
+                  <Link to={`/livestream/${campaign.id}/${campaign.roomId}`} className="btn btn-outline-success mx-1">
                     Join
                   </Link>
                 )}

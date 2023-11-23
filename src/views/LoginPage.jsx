@@ -85,6 +85,7 @@ export default function LoginPage() {
                 onClick={(e) => {
                   handleAuthentication(e, 'toRegister');
                 }}
+                style={{marginLeft: '4px'}}
               >
                 Register here
               </span>

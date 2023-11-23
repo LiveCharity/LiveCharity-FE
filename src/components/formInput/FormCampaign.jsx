@@ -7,10 +7,12 @@ import Image from 'react-bootstrap/Image';
 import { useDispatch } from 'react-redux';
 import { addCampaign } from '../../store/actions/actionsCampaign';
 import { notifyError, notifySucces } from '../../../helpers/notification';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import CustomLoading from '../CustomLoading';
 
 function FormCampaign() {
   const [isImage, setIsImage] = useState('');
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const handleFile = (e) => {
@@ -53,17 +55,25 @@ function FormCampaign() {
     formData.append('image', campaignForm.thumbnail);
     formData.append('categoryId', campaignForm.categoryId);
     formData.append('description', campaignForm.description);
-    console.log()
-     dispatch(addCampaign(formData))
-      .then(() => {
-        notifySucces('Success add campaign');
-        setTimeout(() => {
-          navigation('/');
-        }, 1000);
-      })
-      .catch((err) => {
-        notifyError(err.response.data.message);
-      })
+
+    setLoading(true);
+    dispatch(addCampaign(formData))
+    .then(() => {
+      notifySucces('Success add campaign');
+      setTimeout(() => {
+        navigation('/');
+      }, 1000);
+    })
+    .catch((err) => {
+      notifyError(err.response.data.message);
+    })
+    .finally(() => {
+      setLoading(false);
+    })
+  }
+
+  if(loading) {
+    return <CustomLoading />
   }
 
   return (
@@ -108,9 +118,12 @@ function FormCampaign() {
             <Form.Control as="textarea" name="description" value={campaignForm.description} onChange={handleInputChange} placeholder="Leave a comment here" style={{ height: '100px' }} />
           </FloatingLabel>
         </Form.Group>
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end gap-4">
           <Button variant="primary" type="submit">
             Start Campaign
+          </Button>
+          <Button variant="danger" type="submit">
+            <Link to={'/'} style={{textDecoration: 'none', color: '#fff'}}>Cancel</Link>
           </Button>
         </div>
       </Form>
