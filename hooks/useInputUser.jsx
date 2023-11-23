@@ -34,8 +34,15 @@ export const useInputUser = (initialState) => {
     }
 
     if (isAuth === 'register') {
-      registerAPI(state);
-      console.log(state);
+      registerAPI(state)
+        .then(() => {
+          notifySucces('Register success');
+          setTimeout(() => navigateToRoute('/login'), 2000);
+        })
+        .catch((err) => {
+          notifyError(err);
+        })
+      // console.log(state);
     }
 
     if (isAuth === 'toRegister') navigateToRoute('/register');

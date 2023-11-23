@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import './Register.scss';
+import { ToastContainer } from 'react-toastify';
 
 export default function RegisterPage() {
   const [_, handleInputChange, handleAuthentication] = useInputUser({
@@ -14,6 +15,7 @@ export default function RegisterPage() {
 
   return (
     <>
+    <ToastContainer />
       <section className="register">
         <div className="left-section">
           <img src="/lc.png" alt="Logo" />

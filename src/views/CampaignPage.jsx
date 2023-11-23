@@ -3,13 +3,15 @@ import CarouselImage from '../components/campaign/CarouselImage';
 import './CampaignPage.css';
 import CampaignCard from '../components/campaign/CampaignCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { campaignFetch } from '../store/actions/actionsCampaign';
 import { useNavigate } from 'react-router-dom';
+import CustomLoading from '../components/CustomLoading';
 
 export default function CampaignPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const campaignData = useSelector((state) => {
     console.log(state);
@@ -17,15 +19,29 @@ export default function CampaignPage() {
   });
 
   useEffect(() => {
+    setLoading(true)
     dispatch(campaignFetch()).then(() => {
       console.log('FETCH BERHASIL DARI CAMPAIGN PAGE');
-    });
+    }).catch((err) => {
+      console.log(err);
+    }). finally(() => {
+      window.scrollTo({
+        top: 0
+      })
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    })
   }, []);
 
   const handleToList = (e) => {
     e.preventDefault();
     navigate('/listcampaign');
   };
+
+  if(loading) {
+    return <CustomLoading />
+  }
 
   return (
     <div className="campaign-container">
